@@ -4,62 +4,39 @@ import Image from '../../../components/AppImage';
 import Icon from '../../../components/AppIcon';
 
 const TestimonialsSection = ({ currentLanguage }) => {
-  const testimonials = [
-    {
-      id: 1,
-      name: currentLanguage === 'hi' ? 'प्रिया शर्मा' : 'Priya Sharma',
-      role: currentLanguage === 'hi' ? 'ग्राफिक डिज़ाइनर' : 'Graphic Designer',
-      location: currentLanguage === 'hi' ? 'मुंबई' : 'Mumbai',
-      avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face',
-      earnings: '₹85,000',
-      period: currentLanguage === 'hi' ? 'पिछले महीने' : 'Last Month',
-      content: currentLanguage === 'hi' 
-        ? `CreatorBazaar ने मेरी जिंदगी बदल दी! मैं अपने डिज़ाइन टेम्प्लेट्स बेचकर हर महीने अच्छी कमाई कर रही हूं। UPI पेमेंट तुरंत मिल जाती है।`
-        : `CreatorBazaar changed my life! I'm earning great money every month selling my design templates. UPI payments are instant and hassle-free.`,
-      rating: 5,
-      productsSold: 450
+  // Removed fake testimonials - showing placeholder for beta launch
+  const placeholderContent = {
+    en: {
+      title: "Join the Beta Launch",
+      subtitle: "Be among the first creators to launch on CreatorBazaar",
+      description: "We're launching soon with a select group of creators. Join our beta program and get early access with exclusive benefits.",
+      benefits: [
+        "0% platform fees during beta",
+        "Priority support and feedback",
+        "Early access to new features",
+        "Featured creator spotlight"
+      ],
+      cta: "Join Beta Program"
     },
-    {
-      id: 2,
-      name: currentLanguage === 'hi' ? 'राहुल गुप्ता' : 'Rahul Gupta',
-      role: currentLanguage === 'hi' ? 'कोडिंग इंस्ट्रक्टर' : 'Coding Instructor',
-      location: currentLanguage === 'hi' ? 'बैंगलोर' : 'Bangalore',avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',earnings: '₹1,20,000',
-      period: currentLanguage === 'hi' ? 'पिछले महीने' : 'Last Month',
-      content: currentLanguage === 'hi'
-        ? `मैं अपने कोडिंग कोर्स और PDF गाइड्स बेचता हूं। प्लेटफॉर्म बहुत user-friendly है और कोई hidden charges नहीं हैं।`
-        : `I sell my coding courses and PDF guides here. The platform is super user-friendly and there are no hidden charges.`,
-      rating: 5,
-      productsSold: 280
-    },
-    {
-      id: 3,
-      name: currentLanguage === 'hi' ? 'अनीता पटेल' : 'Anita Patel',
-      role: currentLanguage === 'hi' ? 'योग इंस्ट्रक्टर' : 'Yoga Instructor',
-      location: currentLanguage === 'hi' ? 'अहमदाबाद' : 'Ahmedabad',avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face',earnings: '₹65,000',
-      period: currentLanguage === 'hi' ? 'पिछले महीने' : 'Last Month',
-      content: currentLanguage === 'hi'? `मैं अपनी योग वीडियो सीरीज़ और meditation guides बेचती हूं। बहुत आसान है और customers भी खुश रहते हैं।`: `I sell my yoga video series and meditation guides. It's so easy to use and customers are always happy.`,
-      rating: 5,
-      productsSold: 320
-    },
-    {
-      id: 4,
-      name: currentLanguage === 'hi' ? 'विकास कुमार' : 'Vikas Kumar',
-      role: currentLanguage === 'hi' ? 'फोटोग्राफर' : 'Photographer',
-      location: currentLanguage === 'hi' ? 'दिल्ली' : 'Delhi',
-      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-      earnings: '₹95,000',
-      period: currentLanguage === 'hi' ? 'पिछले महीने' : 'Last Month',
-      content: currentLanguage === 'hi'
-        ? `मैं अपने photography presets और editing tutorials बेचता हूं। यहां selling process बहुत smooth है।`
-        : `I sell my photography presets and editing tutorials. The selling process here is incredibly smooth.`,
-      rating: 5,
-      productsSold: 380
+    hi: {
+      title: "बीटा लॉन्च में शामिल हों",
+      subtitle: "CreatorBazaar पर लॉन्च करने वाले पहले रचनाकारों में से बनें",
+      description: "हम जल्द ही चुनिंदा रचनाकारों के साथ लॉन्च कर रहे हैं। हमारे बीटा प्रोग्राम में शामिल हों और विशेष लाभों के साथ जल्दी पहुंच पाएं।",
+      benefits: [
+        "बीटा के दौरान 0% प्लेटफॉर्म फीस",
+        "प्राथमिकता सहायता और फीडबैक",
+        "नई सुविधाओं तक जल्दी पहुंच",
+        "फीचर्ड क्रिएटर स्पॉटलाइट"
+      ],
+      cta: "बीटा प्रोग्राम में शामिल हों"
     }
-  ];
+  };
+
+  const content = placeholderContent[currentLanguage] || placeholderContent.en;
 
   return (
     <section className="py-20 bg-surface">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container-responsive">
         <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
@@ -68,121 +45,91 @@ const TestimonialsSection = ({ currentLanguage }) => {
           viewport={{ once: true }}
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-6">
-            {currentLanguage === 'hi' ? 'सफल रचनाकारों की कहानियां' : 'Success Stories from Creators'}
+            {content.title}
           </h2>
           <p className="text-xl text-text-secondary max-w-3xl mx-auto">
-            {currentLanguage === 'hi' ?'देखें कि कैसे हजारों रचनाकार CreatorBazaar के साथ अपने सपने पूरे कर रहे हैं' :'See how thousands of creators are achieving their dreams with CreatorBazaar'
-            }
+            {content.subtitle}
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-          {testimonials.map((testimonial, index) => (
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            className="bg-gradient-to-br from-primary-50 to-accent-50 rounded-2xl p-8 lg:p-12 text-center border border-primary-200"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <div className="w-20 h-20 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center mx-auto mb-6">
+              <Icon name="Rocket" size={40} color="white" strokeWidth={2} />
+            </div>
+
+            <h3 className="text-2xl sm:text-3xl font-bold text-primary mb-4">
+              {content.description}
+            </h3>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-8 max-w-2xl mx-auto">
+              {content.benefits.map((benefit, index) => (
+                <motion.div
+                  key={index}
+                  className="flex items-center space-x-3 text-left"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <div className="w-6 h-6 bg-success rounded-full flex items-center justify-center flex-shrink-0">
+                    <Icon name="Check" size={14} color="white" strokeWidth={3} />
+                  </div>
+                  <span className="text-text-primary font-medium">{benefit}</span>
+                </motion.div>
+              ))}
+            </div>
+
             <motion.div
-              key={testimonial.id}
-              className="bg-background rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 group border border-border"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -5, scale: 1.02 }}
+              className="mt-8"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              {/* Header */}
-              <div className="flex items-start justify-between mb-6">
-                <div className="flex items-center space-x-4">
-                  <div className="relative">
-                    <Image
-                      src={testimonial.avatar}
-                      alt={testimonial.name}
-                      className="w-16 h-16 rounded-full object-cover ring-4 ring-primary-100"
-                    />
-                    <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-success-500 rounded-full flex items-center justify-center">
-                      <Icon name="Check" size={12} color="white" strokeWidth={3} />
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-primary">
-                      {testimonial.name}
-                    </h3>
-                    <p className="text-text-secondary text-sm">
-                      {testimonial.role} • {testimonial.location}
-                    </p>
-                    <div className="flex items-center mt-1">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Icon key={i} name="Star" size={14} className="text-warning-500 fill-current" />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Earnings Badge */}
-                <div className="text-right">
-                  <div className="bg-gradient-to-r from-success-500 to-success-600 text-white px-4 py-2 rounded-full text-sm font-bold">
-                    {testimonial.earnings}
-                  </div>
-                  <p className="text-xs text-text-secondary mt-1">
-                    {testimonial.period}
-                  </p>
-                </div>
-              </div>
-
-              {/* Content */}
-              <blockquote className="text-text-primary leading-relaxed mb-6 italic">
-                "{testimonial.content}"
-              </blockquote>
-
-              {/* Stats */}
-              <div className="flex items-center justify-between pt-4 border-t border-border">
-                <div className="flex items-center space-x-4 text-sm text-text-secondary">
-                  <div className="flex items-center space-x-1">
-                    <Icon name="Package" size={16} className="text-primary" />
-                    <span>{testimonial.productsSold} {currentLanguage === 'hi' ? 'बेचे गए' : 'sold'}</span>
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    <Icon name="TrendingUp" size={16} className="text-success-600" />
-                    <span>{currentLanguage === 'hi' ? 'बढ़ रहा है' : 'Growing'}</span>
-                  </div>
-                </div>
-                <div className="text-xs text-text-tertiary">
-                  {currentLanguage === 'hi' ? 'सत्यापित रचनाकार' : 'Verified Creator'}
-                </div>
-              </div>
+              <button className="btn-highlight text-lg px-8 py-4">
+                {content.cta}
+              </button>
             </motion.div>
-          ))}
+          </motion.div>
         </div>
 
-        {/* Bottom CTA */}
+        {/* Trust Indicators */}
         <motion.div
-          className="text-center"
+          className="mt-16 text-center"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
         >
-          <div className="bg-gradient-to-r from-primary-50 to-accent-50 rounded-2xl p-8 lg:p-12">
-            <h3 className="text-2xl sm:text-3xl font-bold text-primary mb-4">
-              {currentLanguage === 'hi' ?'आप भी बन सकते हैं अगली सफलता की कहानी!' :'You Could Be Our Next Success Story!'
-              }
-            </h3>
-            <p className="text-text-secondary mb-6 max-w-2xl mx-auto">
-              {currentLanguage === 'hi' ?'आज ही शुरू करें और अपने डिजिटल उत्पादों से कमाई करना शुरू करें' :'Start today and begin earning from your digital products'
-              }
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <div className="flex items-center space-x-2 text-sm text-success-700 bg-success-50 px-4 py-2 rounded-full">
-                <Icon name="Users" size={16} />
-                <span>
-                  {currentLanguage === 'hi' ?'25,000+ रचनाकार पहले से जुड़े हैं' :'25,000+ creators already joined'
-                  }
-                </span>
-              </div>
-              <div className="flex items-center space-x-2 text-sm text-primary bg-primary-50 px-4 py-2 rounded-full">
-                <Icon name="Clock" size={16} />
-                <span>
-                  {currentLanguage === 'hi' ?'5 मिनट में सेटअप' :'5 minute setup'
-                  }
-                </span>
-              </div>
+          <div className="flex flex-wrap justify-center items-center gap-8 opacity-60">
+            <div className="flex items-center space-x-2">
+              <Icon name="Shield" size={20} className="text-success" />
+              <span className="text-sm font-medium text-text-secondary">
+                {currentLanguage === 'hi' ? 'SSL सुरक्षित' : 'SSL Secured'}
+              </span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Icon name="Zap" size={20} className="text-highlight" />
+              <span className="text-sm font-medium text-text-secondary">
+                {currentLanguage === 'hi' ? 'तुरंत पेमेंट' : 'Instant Payments'}
+              </span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Icon name="Users" size={20} className="text-primary" />
+              <span className="text-sm font-medium text-text-secondary">
+                {currentLanguage === 'hi' ? '24/7 सपोर्ट' : '24/7 Support'}
+              </span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Icon name="MapPin" size={20} className="text-accent" />
+              <span className="text-sm font-medium text-text-secondary">
+                {currentLanguage === 'hi' ? 'भारत में बनाया गया' : 'Made in India'}
+              </span>
             </div>
           </div>
         </motion.div>

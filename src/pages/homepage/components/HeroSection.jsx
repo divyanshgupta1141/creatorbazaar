@@ -8,12 +8,11 @@ const HeroSection = ({ currentLanguage }) => {
   const navigate = useNavigate();
 
   const handleStartSelling = () => {
-    const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
-    if (isAuthenticated) {
-      navigate('/product-upload');
-    } else {
-      navigate('/authentication-modal');
-    }
+    navigate('/product-upload');
+  };
+
+  const handleViewProducts = () => {
+    navigate('/explore');
   };
 
   return (
@@ -25,7 +24,7 @@ const HeroSection = ({ currentLanguage }) => {
         <div className="absolute bottom-20 left-1/2 w-72 h-72 bg-secondary rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-2000"></div>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div className="relative z-10 container-responsive text-center">
         <div className="max-w-4xl mx-auto">
           {/* Main Headline */}
           <motion.div
@@ -35,13 +34,13 @@ const HeroSection = ({ currentLanguage }) => {
             className="mb-8"
           >
             <motion.h1
-              className="text-4xl sm:text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight"
+              className="text-4xl sm:text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight tracking-tight"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.2 }}
             >
               <motion.span
-                className="inline-block bg-gradient-to-r from-white via-accent-200 to-warning bg-clip-text text-transparent"
+                className="inline-block bg-gradient-to-r from-white via-accent-200 to-highlight bg-clip-text text-transparent"
                 animate={{
                   backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
                 }}
@@ -58,7 +57,7 @@ const HeroSection = ({ currentLanguage }) => {
               </motion.span>
               <br />
               <motion.span
-                className="inline-block bg-gradient-to-r from-warning via-accent-300 to-white bg-clip-text text-transparent"
+                className="inline-block bg-gradient-to-r from-highlight via-accent-300 to-white bg-clip-text text-transparent"
                 animate={{
                   backgroundPosition: ['100% 50%', '0% 50%', '100% 50%'],
                 }}
@@ -82,12 +81,14 @@ const HeroSection = ({ currentLanguage }) => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              {currentLanguage === 'hi' ?'भारतीय रचनाकारों के लिए डिजिटल उत्पाद बेचने का सबसे आसान तरीका। UPI के साथ तुरंत पेमेंट पाएं।' :'The easiest way for Indian creators to sell digital products. Get paid instantly with UPI.'
+              {currentLanguage === 'hi' 
+                ? 'भारतीय रचनाकारों के लिए डिजिटल उत्पाद बेचने का सबसे आसान तरीका। UPI के साथ तुरंत पेमेंट पाएं।'
+                : 'The easiest way for Indian creators to sell digital products. Get paid instantly with UPI.'
               }
             </motion.p>
           </motion.div>
 
-          {/* CTA Buttons */}
+          {/* Dual CTA Buttons */}
           <motion.div
             className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
             initial={{ opacity: 0, y: 30 }}
@@ -97,6 +98,7 @@ const HeroSection = ({ currentLanguage }) => {
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              className="w-full sm:w-auto"
             >
               <Button
                 variant="primary"
@@ -104,30 +106,31 @@ const HeroSection = ({ currentLanguage }) => {
                 onClick={handleStartSelling}
                 iconName="Zap"
                 iconPosition="left"
-                className="bg-warning hover:bg-warning/90 text-primary font-bold px-8 py-4 text-lg shadow-2xl glow-effect"
+                className="bg-highlight hover:bg-highlight-600 text-black font-bold px-8 py-4 text-lg shadow-2xl glow-effect w-full sm:w-auto"
               >
-                {currentLanguage === 'hi' ? 'बेचना शुरू करें' : 'Start Selling'}
+                {currentLanguage === 'hi' ? 'बेचना शुरू करें' : 'Start Selling Now'}
               </Button>
             </motion.div>
 
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              className="w-full sm:w-auto"
             >
               <Button
                 variant="outline"
                 size="lg"
-                onClick={() => navigate('/authentication-modal')}
-                iconName="Play"
+                onClick={handleViewProducts}
+                iconName="Search"
                 iconPosition="left"
-                className="border-white/30 text-white hover:bg-white/10 backdrop-blur-sm"
+                className="border-white/30 text-white hover:bg-white/10 backdrop-blur-sm w-full sm:w-auto"
               >
-                {currentLanguage === 'hi' ? 'डेमो देखें' : 'Watch Demo'}
+                {currentLanguage === 'hi' ? 'उत्पाद देखें' : 'View Products'}
               </Button>
             </motion.div>
           </motion.div>
 
-          {/* Stats Preview */}
+          {/* Stats Preview - Removed fake stats */}
           <motion.div
             className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto"
             initial={{ opacity: 0, y: 30 }}
@@ -136,16 +139,16 @@ const HeroSection = ({ currentLanguage }) => {
           >
             {[
               { 
-                number: currentLanguage === 'hi' ? '₹50,00,000+' : '₹50,00,000+', 
+                number: currentLanguage === 'hi' ? 'जल्द आ रहा है' : 'Coming Soon', 
                 label: currentLanguage === 'hi' ? 'कुल कमाई' : 'Total Earnings' 
               },
               { 
-                number: '25,000+', 
-                label: currentLanguage === 'hi' ? 'खुश रचनाकार' : 'Happy Creators' 
+                number: currentLanguage === 'hi' ? 'बीटा में' : 'Beta Launch', 
+                label: currentLanguage === 'hi' ? 'रचनाकार' : 'Creators' 
               },
               { 
-                number: '1,50,000+', 
-                label: currentLanguage === 'hi' ? 'उत्पाद बेचे गए' : 'Products Sold' 
+                number: currentLanguage === 'hi' ? 'शुरुआत' : 'Starting', 
+                label: currentLanguage === 'hi' ? 'उत्पाद' : 'Products' 
               },
               { 
                 number: '0%', 
@@ -158,7 +161,7 @@ const HeroSection = ({ currentLanguage }) => {
                 whileHover={{ scale: 1.05, y: -5 }}
                 transition={{ duration: 0.2 }}
               >
-                <div className="text-2xl sm:text-3xl font-bold text-white mb-2">
+                <div className="text-lg sm:text-xl font-bold text-white mb-2">
                   {stat.number}
                 </div>
                 <div className="text-sm text-white/80">

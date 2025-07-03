@@ -9,6 +9,7 @@ import ProductDetailPage from "pages/product-detail-page";
 import ProductUpload from "pages/product-upload";
 import CreatorDashboard from "pages/creator-dashboard";
 import IndividualProductManagement from "pages/individual-product-management";
+import ExplorePage from "pages/explore";
 import NotFound from "pages/NotFound";
 
 const Routes = () => {
@@ -22,9 +23,11 @@ const Routes = () => {
         <Route path="/homepage" element={<Homepage />} />
         <Route path="/authentication-modal" element={<AuthenticationModal />} />
         <Route path="/product-detail-page" element={<ProductDetailPage />} />
+        <Route path="/product-detail-page/:id" element={<ProductDetailPage />} />
         <Route path="/product-upload" element={<ProductUpload />} />
         <Route path="/creator-dashboard" element={<CreatorDashboard />} />
         <Route path="/individual-product-management" element={<IndividualProductManagement />} />
+        <Route path="/explore" element={<ExplorePage />} />
         <Route path="*" element={<NotFound />} />
       </RouterRoutes>
       </ErrorBoundary>

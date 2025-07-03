@@ -7,6 +7,7 @@ import FileUploadZone from './components/FileUploadZone';
 import ProductDetailsForm from './components/ProductDetailsForm';
 import SuccessModal from './components/SuccessModal';
 import Icon from '../../components/AppIcon';
+import Button from '../../components/ui/Button';
 
 const ProductUpload = () => {
   const navigate = useNavigate();
@@ -16,20 +17,14 @@ const ProductUpload = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [createdProduct, setCreatedProduct] = useState(null);
+  const [showAuthBanner, setShowAuthBanner] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
     description: '',
     price: ''
   });
 
-  // Check authentication
   useEffect(() => {
-    const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
-    if (!isAuthenticated) {
-      navigate('/authentication-modal');
-      return;
-    }
-
     const savedLanguage = localStorage.getItem('language') || 'en';
     setCurrentLanguage(savedLanguage);
 
@@ -38,8 +33,15 @@ const ProductUpload = () => {
     };
 
     window.addEventListener('languageChange', handleLanguageChange);
-    return () => window.removeEventListener('languageChange', handleLanguageChange);
-  }, [navigate]);
+
+    // Check authentication status
+    const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+    setShowAuthBanner(!isAuthenticated);
+
+    return () => {
+      window.removeEventListener('languageChange', handleLanguageChange);
+    };
+  }, []);
 
   const handleFileSelect = (file) => {
     setSelectedFile(file);
@@ -64,6 +66,15 @@ const ProductUpload = () => {
   };
 
   const handleProductSubmit = async () => {
+    // Check authentication before saving
+    const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+    if (!isAuthenticated) {
+      navigate('/authentication-modal', { 
+        state: { from: '/product-upload', productData: { formData, selectedFile } }
+      });
+      return;
+    }
+
     setIsLoading(true);
     setCurrentStep(3);
 
@@ -97,22 +108,8 @@ const ProductUpload = () => {
       setCreatedProduct(newProduct);
       setShowSuccessModal(true);
 
-      // Show success toast
-      window.dispatchEvent(new CustomEvent('showToast', {
-        detail: {
-          type: 'success',
-          message: currentLanguage === 'hi' ?'उत्पाद सफलतापूर्वक बनाया गया!' :'Product created successfully!'
-        }
-      }));
-
     } catch (error) {
       console.error('Error creating product:', error);
-      window.dispatchEvent(new CustomEvent('showToast', {
-        detail: {
-          type: 'error',
-          message: currentLanguage === 'hi' ?'उत्पाद बनाने में त्रुटि हुई' :'Error creating product'
-        }
-      }));
     } finally {
       setIsLoading(false);
     }
@@ -124,6 +121,12 @@ const ProductUpload = () => {
     setSelectedFile(null);
     setFormData({ title: '', description: '', price: '' });
     setCurrentStep(1);
+  };
+
+  const handleAuthLogin = () => {
+    navigate('/authentication-modal', { 
+      state: { from: '/product-upload' }
+    });
   };
 
   const getStepContent = () => {
@@ -156,12 +159,10 @@ const ProductUpload = () => {
               className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full mx-auto mb-4"
             />
             <h3 className="text-xl font-semibold text-primary mb-2">
-              {currentLanguage === 'hi' ?'आपका उत्पाद बनाया जा रहा है...' :'Creating your product...'
-              }
+              {currentLanguage === 'hi' ? 'आपका उत्पाद बनाया जा रहा है...' : 'Creating your product...'}
             </h3>
             <p className="text-text-secondary">
-              {currentLanguage === 'hi' ?'कृपया प्रतीक्षा करें, यह कुछ सेकंड में पूरा हो जाएगा' :'Please wait, this will be completed in a few seconds'
-              }
+              {currentLanguage === 'hi' ? 'कृपया प्रतीक्षा करें, यह कुछ सेकंड में पूरा हो जाएगा' : 'Please wait, this will be completed in a few seconds'}
             </p>
           </div>
         );
@@ -174,8 +175,37 @@ const ProductUpload = () => {
     <div className="min-h-screen bg-background">
       <Header />
       
+      {/* Authentication Banner */}
+      {showAuthBanner && (
+        <motion.div
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-gradient-to-r from-highlight to-warning text-black px-4 py-3 text-center relative"
+        >
+          <div className="container-responsive flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <Icon name="Info" size={20} />
+              <span className="font-medium">
+                {currentLanguage === 'hi' 
+                  ? 'अपने उत्पाद को सहेजने और प्रकाशित करने के लिए लॉग इन करें'
+                  : 'Login to save and publish your product'
+                }
+              </span>
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleAuthLogin}
+              className="border-black text-black hover:bg-black hover:text-white"
+            >
+              {currentLanguage === 'hi' ? 'लॉग इन करें' : 'Login'}
+            </Button>
+          </div>
+        </motion.div>
+      )}
+      
       <main className="pt-20 pb-12">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto container-responsive">
           {/* Page Header */}
           <div className="text-center mb-8">
             <motion.div
@@ -184,11 +214,12 @@ const ProductUpload = () => {
               className="space-y-4"
             >
               <h1 className="text-3xl md:text-4xl font-bold text-primary">
-                {currentLanguage === 'hi' ?'अपना डिजिटल उत्पाद अपलोड करें' :'Upload Your Digital Product'
-                }
+                {currentLanguage === 'hi' ? 'अपना डिजिटल उत्पाद अपलोड करें' : 'Upload Your Digital Product'}
               </h1>
               <p className="text-lg text-text-secondary max-w-2xl mx-auto">
-                {currentLanguage === 'hi' ?'तीन आसान चरणों में अपना डिजिटल उत्पाद बनाएं और तुरंत बेचना शुरू करें' :'Create your digital product in three easy steps and start selling instantly'
+                {currentLanguage === 'hi' 
+                  ? 'तीन आसान चरणों में अपना डिजिटल उत्पाद बनाएं और तुरंत बेचना शुरू करें'
+                  : 'Create your digital product in three easy steps and start selling instantly'
                 }
               </p>
             </motion.div>
@@ -257,7 +288,9 @@ const ProductUpload = () => {
                           {currentLanguage === 'hi' ? 'आकर्षक शीर्षक' : 'Catchy Title'}
                         </h4>
                         <p className="text-sm text-text-secondary">
-                          {currentLanguage === 'hi' ?'एक स्पष्ट और आकर्षक शीर्षक चुनें जो आपके उत्पाद को बेहतर तरीके से दर्शाता हो' :'Choose a clear and catchy title that best represents your product'
+                          {currentLanguage === 'hi' 
+                            ? 'एक स्पष्ट और आकर्षक शीर्षक चुनें जो आपके उत्पाद को बेहतर तरीके से दर्शाता हो'
+                            : 'Choose a clear and catchy title that best represents your product'
                           }
                         </p>
                       </div>
@@ -271,7 +304,9 @@ const ProductUpload = () => {
                           {currentLanguage === 'hi' ? 'विस्तृत विवरण' : 'Detailed Description'}
                         </h4>
                         <p className="text-sm text-text-secondary">
-                          {currentLanguage === 'hi' ?'अपने उत्पाद के बारे में विस्तार से बताएं कि यह क्या है और कैसे उपयोगी है' :'Describe your product in detail, what it is and how it can be useful'
+                          {currentLanguage === 'hi' 
+                            ? 'अपने उत्पाद के बारे में विस्तार से बताएं कि यह क्या है और कैसे उपयोगी है'
+                            : 'Describe your product in detail, what it is and how it can be useful'
                           }
                         </p>
                       </div>
@@ -285,7 +320,9 @@ const ProductUpload = () => {
                           {currentLanguage === 'hi' ? 'सही मूल्य' : 'Right Pricing'}
                         </h4>
                         <p className="text-sm text-text-secondary">
-                          {currentLanguage === 'hi' ?'प्रतिस्पर्धी मूल्य रखें जो आपके उत्पाद की गुणवत्ता को दर्शाता हो' :'Set competitive pricing that reflects the quality of your product'
+                          {currentLanguage === 'hi' 
+                            ? 'प्रतिस्पर्धी मूल्य रखें जो आपके उत्पाद की गुणवत्ता को दर्शाता हो'
+                            : 'Set competitive pricing that reflects the quality of your product'
                           }
                         </p>
                       </div>
@@ -306,8 +343,7 @@ const ProductUpload = () => {
             <div className="inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-primary to-accent rounded-full text-white font-semibold shadow-lg">
               <Icon name="Infinity" size={20} />
               <span>
-                {currentLanguage === 'hi' ?'एक बार अपलोड करें। हमेशा के लिए बेचें।' :'Upload Once. Sell Forever.'
-                }
+                {currentLanguage === 'hi' ? 'एक बार अपलोड करें। हमेशा के लिए बेचें।' : 'Upload Once. Sell Forever.'}
               </span>
             </div>
           </motion.div>

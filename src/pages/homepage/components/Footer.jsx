@@ -58,8 +58,8 @@ const Footer = ({ currentLanguage }) => {
   };
 
   return (
-    <footer className="bg-primary text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer className="bg-footer-black text-white">
+      <div className="container-responsive">
         {/* Main Footer Content */}
         <div className="py-16">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
@@ -72,7 +72,7 @@ const Footer = ({ currentLanguage }) => {
                 transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
               >
-                <div className="w-10 h-10 bg-gradient-to-br from-accent to-warning rounded-lg flex items-center justify-center">
+                <div className="w-10 h-10 bg-gradient-to-br from-accent to-highlight rounded-lg flex items-center justify-center">
                   <Icon name="Zap" size={24} color="white" strokeWidth={2.5} />
                 </div>
                 <div>
@@ -90,7 +90,9 @@ const Footer = ({ currentLanguage }) => {
                 transition={{ duration: 0.6, delay: 0.1 }}
                 viewport={{ once: true }}
               >
-                {currentLanguage === 'hi' ?'भारतीय रचनाकारों के लिए डिजिटल उत्पाद बेचने का सबसे आसान और भरोसेमंद प्लेटफॉर्म। UPI के साथ तुरंत पेमेंट पाएं।' :'The easiest and most trusted platform for Indian creators to sell digital products. Get paid instantly with UPI.'
+                {currentLanguage === 'hi' 
+                  ? 'भारतीय रचनाकारों के लिए डिजिटल उत्पाद बेचने का सबसे आसान और भरोसेमंद प्लेटफॉर्म। UPI के साथ तुरंत पेमेंट पाएं।'
+                  : 'The easiest and most trusted platform for Indian creators to sell digital products. Get paid instantly with UPI.'
                 }
               </motion.p>
 
@@ -159,7 +161,9 @@ const Footer = ({ currentLanguage }) => {
                 {currentLanguage === 'hi' ? 'अपडेट्स पाएं' : 'Stay Updated'}
               </h3>
               <p className="text-white/80">
-                {currentLanguage === 'hi' ?'नए फीचर्स और टिप्स के लिए न्यूज़लेटर सब्स्क्राइब करें' :'Subscribe to our newsletter for new features and tips'
+                {currentLanguage === 'hi' 
+                  ? 'नए फीचर्स और टिप्स के लिए न्यूज़लेटर सब्स्क्राइब करें'
+                  : 'Subscribe to our newsletter for new features and tips'
                 }
               </p>
             </div>
