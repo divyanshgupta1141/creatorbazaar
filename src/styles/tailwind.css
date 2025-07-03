@@ -1,0 +1,222 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Primary Colors */
+    --color-primary: #003366; /* Deep Blue */
+    --color-primary-50: #E6F0FF; /* Light Blue Tint */
+    --color-primary-100: #CCE0FF; /* Lighter Blue */
+    --color-primary-200: #99C2FF; /* Light Blue */
+    --color-primary-300: #66A3FF; /* Medium Light Blue */
+    --color-primary-400: #3385FF; /* Medium Blue */
+    --color-primary-500: #0066CC; /* Blue */
+    --color-primary-600: #004D99; /* Dark Blue */
+    --color-primary-700: #003366; /* Deep Blue - Primary */
+    --color-primary-800: #002952; /* Darker Blue */
+    --color-primary-900: #001F3D; /* Darkest Blue */
+    --color-primary-foreground: #FFFFFF; /* White */
+
+    /* Secondary Colors */
+    --color-secondary: #0483B8; /* Medium Blue */
+    --color-secondary-50: #E6F5FA; /* Light Secondary Tint */
+    --color-secondary-100: #CCEBF5; /* Lighter Secondary */
+    --color-secondary-200: #99D7EB; /* Light Secondary */
+    --color-secondary-300: #66C3E0; /* Medium Light Secondary */
+    --color-secondary-400: #33AFD6; /* Medium Secondary */
+    --color-secondary-500: #0483B8; /* Medium Blue - Secondary */
+    --color-secondary-600: #036A96; /* Dark Secondary */
+    --color-secondary-700: #025174; /* Darker Secondary */
+    --color-secondary-800: #023852; /* Very Dark Secondary */
+    --color-secondary-900: #011F30; /* Darkest Secondary */
+    --color-secondary-foreground: #FFFFFF; /* White */
+
+    /* Accent Colors */
+    --color-accent: #00B4C6; /* Teal */
+    --color-accent-50: #E6F9FB; /* Light Accent Tint */
+    --color-accent-100: #CCF3F7; /* Lighter Accent */
+    --color-accent-200: #99E7EF; /* Light Accent */
+    --color-accent-300: #66DBE7; /* Medium Light Accent */
+    --color-accent-400: #33CFDF; /* Medium Accent */
+    --color-accent-500: #00B4C6; /* Teal - Accent */
+    --color-accent-600: #009AAA; /* Dark Accent */
+    --color-accent-700: #00808E; /* Darker Accent */
+    --color-accent-800: #006672; /* Very Dark Accent */
+    --color-accent-900: #004C56; /* Darkest Accent */
+    --color-accent-foreground: #FFFFFF; /* White */
+
+    /* Background Colors */
+    --color-background: #FAFBFC; /* Soft White */
+    --color-background-secondary: #F3F4F6; /* Light Gray */
+    --color-surface: #FFFFFF; /* Pure White */
+    --color-surface-secondary: #F9FAFB; /* Off White */
+
+    /* Text Colors */
+    --color-text-primary: #04253C; /* Deep Navy */
+    --color-text-secondary: #6B7280; /* Neutral Gray */
+    --color-text-tertiary: #9CA3AF; /* Light Gray */
+    --color-text-inverse: #FFFFFF; /* White */
+
+    /* Status Colors */
+    --color-success: #10B981; /* Emerald */
+    --color-success-50: #ECFDF5; /* Light Success Tint */
+    --color-success-100: #D1FAE5; /* Lighter Success */
+    --color-success-200: #A7F3D0; /* Light Success */
+    --color-success-300: #6EE7B7; /* Medium Light Success */
+    --color-success-400: #34D399; /* Medium Success */
+    --color-success-500: #10B981; /* Emerald - Success */
+    --color-success-600: #059669; /* Dark Success */
+    --color-success-700: #047857; /* Darker Success */
+    --color-success-800: #065F46; /* Very Dark Success */
+    --color-success-900: #064E3B; /* Darkest Success */
+    --color-success-foreground: #FFFFFF; /* White */
+
+    --color-warning: #F59E0B; /* Amber */
+    --color-warning-50: #FFFBEB; /* Light Warning Tint */
+    --color-warning-100: #FEF3C7; /* Lighter Warning */
+    --color-warning-200: #FDE68A; /* Light Warning */
+    --color-warning-300: #FCD34D; /* Medium Light Warning */
+    --color-warning-400: #FBBF24; /* Medium Warning */
+    --color-warning-500: #F59E0B; /* Amber - Warning */
+    --color-warning-600: #D97706; /* Dark Warning */
+    --color-warning-700: #B45309; /* Darker Warning */
+    --color-warning-800: #92400E; /* Very Dark Warning */
+    --color-warning-900: #78350F; /* Darkest Warning */
+    --color-warning-foreground: #FFFFFF; /* White */
+
+    --color-error: #EF4444; /* Red */
+    --color-error-50: #FEF2F2; /* Light Error Tint */
+    --color-error-100: #FEE2E2; /* Lighter Error */
+    --color-error-200: #FECACA; /* Light Error */
+    --color-error-300: #FCA5A5; /* Medium Light Error */
+    --color-error-400: #F87171; /* Medium Error */
+    --color-error-500: #EF4444; /* Red - Error */
+    --color-error-600: #DC2626; /* Dark Error */
+    --color-error-700: #B91C1C; /* Darker Error */
+    --color-error-800: #991B1B; /* Very Dark Error */
+    --color-error-900: #7F1D1D; /* Darkest Error */
+    --color-error-foreground: #FFFFFF; /* White */
+
+    /* Border Colors */
+    --color-border: #E5E7EB; /* Light Gray */
+    --color-border-secondary: #D1D5DB; /* Medium Gray */
+
+    /* Shadow Colors */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+    /* Glassmorphism */
+    --glass-backdrop: blur(25px);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.2);
+    --glass-bg: rgba(255, 255, 255, 0.1);
+
+    /* Animation */
+    --transition-spring: cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-duration: 200ms;
+    --transition-duration-slow: 300ms;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-text-primary font-sans antialiased;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply backdrop-blur-[25px] bg-white/10 border border-white/20 rounded-lg;
+  }
+
+  .glass-surface {
+    @apply backdrop-blur-[25px] bg-white/5 border border-white/10;
+  }
+
+  .spring-transition {
+    transition: all var(--transition-duration) var(--transition-spring);
+  }
+
+  .spring-transition-slow {
+    transition: all var(--transition-duration-slow) var(--transition-spring);
+  }
+
+  .glow-effect {
+    @apply transition-shadow duration-200 ease-out;
+  }
+
+  .glow-effect:hover {
+    box-shadow: 0 0 20px rgba(0, 180, 198, 0.3);
+  }
+
+  .shimmer {
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px] p-2;
+  }
+
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .safe-area-left {
+    padding-left: env(safe-area-inset-left);
+  }
+
+  .safe-area-right {
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
