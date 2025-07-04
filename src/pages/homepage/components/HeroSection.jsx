@@ -123,7 +123,7 @@ const HeroSection = ({ currentLanguage }) => {
                 onClick={handleViewProducts}
                 iconName="Search"
                 iconPosition="left"
-                className="border-white/30 text-white hover:bg-white/10 backdrop-blur-sm w-full sm:w-auto"
+                className="border-white/30 text-white hover:bg-white/10 backdrop-blur-sm w-full sm:w-auto bg-white/5 hover:text-white"
               >
                 {currentLanguage === 'hi' ? 'उत्पाद देखें' : 'View Products'}
               </Button>
