@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import Icon from '../../components/AppIcon';
-import { authenticateUser } from '../../utils/authUtils';
 import PhoneInput from './components/PhoneInput';
 import OTPInput from './components/OTPInput';
 import SuccessMessage from './components/SuccessMessage';
@@ -76,13 +75,15 @@ const AuthenticationModal = () => {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // For demo purposes, any OTP works
+      // Magic OTP for demo
       if (otp !== '123456') {
         throw new Error(currentLanguage === 'hi' ? 'गलत OTP। कृपया 123456 का उपयोग करें।' : 'Invalid OTP. Please use 123456 for demo.');
       }
 
       // Set authentication
-      authenticateUser({ phone: phoneNumber });
+      localStorage.setItem('isAuthenticated', 'true');
+      localStorage.setItem('userPhone', phoneNumber);
+      localStorage.setItem('authTimestamp', Date.now().toString());
 
       setStep('success');
     } catch (err) {
@@ -100,7 +101,7 @@ const AuthenticationModal = () => {
 
   const handleSuccess = () => {
     // Redirect to intended page or dashboard
-    const from = location.state?.from || '/dashboard';
+    const from = location.state?.from || '/creator-dashboard';
     navigate(from);
   };
 

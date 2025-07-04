@@ -8,7 +8,7 @@ const HeroSection = ({ currentLanguage }) => {
   const navigate = useNavigate();
 
   const handleStartSelling = () => {
-    navigate('/login');
+    navigate('/authentication-modal');
   };
 
   const handleViewProducts = () => {

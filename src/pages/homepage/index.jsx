@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { isAuthenticated } from '../../utils/authUtils';
 import Header from '../../components/ui/Header';
 import MobileNavigation from '../../components/ui/MobileNavigation';
 import HeroSection from './components/HeroSection';
@@ -14,7 +12,6 @@ import FloatingFeedback from './components/FloatingFeedback';
 import Footer from './components/Footer';
 
 const Homepage = () => {
-  const navigate = useNavigate();
   const [currentLanguage, setCurrentLanguage] = useState('en');
 
   useEffect(() => {
@@ -28,13 +25,6 @@ const Homepage = () => {
     window.addEventListener('languageChange', handleLanguageChange);
     return () => window.removeEventListener('languageChange', handleLanguageChange);
   }, []);
-
-  useEffect(() => {
-    // If user is authenticated, redirect to dashboard
-    if (isAuthenticated()) {
-      navigate('/dashboard');
-    }
-  }, [navigate]);
 
   const pageTitle = currentLanguage === 'hi' 
     ? 'CreatorBazaar - भारतीय रचनाकारों का डिजिटल मार्केटप्लेस' 

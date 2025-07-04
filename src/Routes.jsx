@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes as RouterRoutes, Route } from "react-router-dom";
 import ScrollToTop from "components/ScrollToTop";
-import ProtectedRoute from "components/ProtectedRoute";
 import ErrorBoundary from "components/ErrorBoundary";
 // Add your imports here
 import Homepage from "pages/homepage";
@@ -28,7 +27,6 @@ import TermsPage from "pages/terms";
 import PrivacyPage from "pages/privacy";
 import RefundsPage from "pages/refunds";
 import NotFound from "pages/NotFound";
-import LoginPage from "pages/login";
 
 const Routes = () => {
   return (
@@ -37,51 +35,43 @@ const Routes = () => {
       <ScrollToTop />
       <RouterRoutes>
         {/* Define your routes here */}
-      <ProtectedRoute>
-        <RouterRoutes>
-          {/* Public Routes */}
-          <Route path="/" element={<Homepage />} />
-          <Route path="/homepage" element={<Homepage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/authentication-modal" element={<AuthenticationModal />} />
-          <Route path="/product-detail-page" element={<ProductDetailPage />} />
-          <Route path="/product-detail-page/:id" element={<ProductDetailPage />} />
-          <Route path="/product/:id" element={<ProductDetailPage />} />
-          <Route path="/pricing" element={<PricingPage />} />
-          <Route path="/help" element={<HelpPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/explore" element={<ExplorePage />} />
-          <Route path="/marketplace" element={<ExplorePage />} />
-          <Route path="/category/:slug" element={<ExplorePage />} />
-          <Route path="/terms" element={<TermsPage />} />
-          <Route path="/privacy" element={<PrivacyPage />} />
-          <Route path="/refunds" element={<RefundsPage />} />
-
-          {/* Dashboard Routes */}
-          <Route path="/creator-dashboard" element={<CreatorDashboard />} />
-          <Route path="/dashboard" element={<CreatorDashboard />} />
-          <Route path="/dashboard/upload" element={<UploadPage />} />
-          <Route path="/dashboard/products" element={<ProductsPage />} />
-          <Route path="/dashboard/collaborators" element={<CollaboratorsPage />} />
-          <Route path="/dashboard/emails" element={<EmailsPage />} />
-          <Route path="/dashboard/sales" element={<SalesPage />} />
-          <Route path="/dashboard/analytics" element={<AnalyticsPage />} />
-          <Route path="/dashboard/settings" element={<SettingsPage />} />
-          <Route path="/individual-product-management" element={<IndividualProductManagement />} />
-          <Route path="/product-upload" element={<ProductUpload />} />
-          <Route path="/upload-product" element={<ProductUpload />} />
-          <Route path="/create-product" element={<CreateProductPage />} />
-          
-          {/* 404 Route */}
-          <Route path="*" element={<NotFound />} />
-        </RouterRoutes>
-      </ProtectedRoute>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/homepage" element={<Homepage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/create-product" element={<CreateProductPage />} />
+        <Route path="/authentication-modal" element={<AuthenticationModal />} />
+        <Route path="/product-detail-page" element={<ProductDetailPage />} />
+        <Route path="/product-detail-page/:id" element={<ProductDetailPage />} />
+        <Route path="/product/:id" element={<ProductDetailPage />} />
+        <Route path="/product-upload" element={<ProductUpload />} />
+        <Route path="/upload-product" element={<ProductUpload />} />
+        <Route path="/creator-dashboard" element={<CreatorDashboard />} />
+        <Route path="/dashboard/upload" element={<UploadPage />} />
+        <Route path="/dashboard" element={<CreatorDashboard />} />
+        <Route path="/dashboard/products" element={<ProductsPage />} />
+        <Route path="/dashboard/collaborators" element={<CollaboratorsPage />} />
+        <Route path="/dashboard/emails" element={<EmailsPage />} />
+        <Route path="/dashboard/sales" element={<SalesPage />} />
+        <Route path="/dashboard/analytics" element={<AnalyticsPage />} />
+        <Route path="/dashboard/settings" element={<SettingsPage />} />
+        <Route path="/individual-product-management" element={<IndividualProductManagement />} />
+        <Route path="/pricing" element={<PricingPage />} />
+        <Route path="/help" element={<HelpPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/explore" element={<ExplorePage />} />
+        <Route path="/marketplace" element={<ExplorePage />} />
+        <Route path="/category/:slug" element={<ExplorePage />} />
+        <Route path="/checkout" element={<ProductDetailPage />} />
+        <Route path="/creator/:username" element={<CreatorDashboard />} />
+        <Route path="/terms" element={<TermsPage />} />
+        <Route path="/privacy" element={<PrivacyPage />} />
+        <Route path="/refunds" element={<RefundsPage />} />
+        <Route path="*" element={<NotFound />} />
+      </RouterRoutes>
       </ErrorBoundary>
     </BrowserRouter>
   );
 };
 
 export default Routes;
-  )
-}

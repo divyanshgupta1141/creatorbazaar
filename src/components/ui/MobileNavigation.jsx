@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { isAuthenticated } from '../../utils/authUtils';
 import Icon from '../AppIcon';
 
 const MobileNavigation = () => {
@@ -20,11 +19,7 @@ const MobileNavigation = () => {
     return () => window.removeEventListener('languageChange', handleLanguageChange);
   }, []);
 
-  // Check if user is authenticated
-  const authenticated = isAuthenticated();
-
-  // Different navigation items based on authentication status
-  const publicNavItems = [
+  const navItems = [
     {
       id: 'home',
       label: currentLanguage === 'hi' ? 'होम' : 'Home',
@@ -56,42 +51,6 @@ const MobileNavigation = () => {
       path: '/help'
     }
   ];
-  
-  const dashboardNavItems = [
-    {
-      id: 'dashboard',
-      label: currentLanguage === 'hi' ? 'होम' : 'Home',
-      icon: 'Home',
-      path: '/dashboard'
-    },
-    {
-      id: 'products',
-      label: currentLanguage === 'hi' ? 'उत्पाद' : 'Products',
-      icon: 'Package',
-      path: '/dashboard/products'
-    },
-    {
-      id: 'upload',
-      label: currentLanguage === 'hi' ? 'अपलोड' : 'Upload',
-      icon: 'Plus',
-      path: '/dashboard/upload'
-    },
-    {
-      id: 'sales',
-      label: currentLanguage === 'hi' ? 'बिक्री' : 'Sales',
-      icon: 'DollarSign',
-      path: '/dashboard/sales'
-    },
-    {
-      id: 'settings',
-      label: currentLanguage === 'hi' ? 'सेटिंग्स' : 'Settings',
-      icon: 'Settings',
-      path: '/dashboard/settings'
-    }
-  ];
-  
-  // Use appropriate navigation items based on auth status
-  const navItems = authenticated ? dashboardNavItems : publicNavItems;
 
   const handleNavigation = (path) => {
     navigate(path);
