@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import Header from '../../components/ui/Header';
+import MobileNavigation from '../../components/ui/MobileNavigation';
 import HeroSection from './components/HeroSection';
 import ProcessSteps from './components/ProcessSteps';
 import StatsSection from './components/StatsSection';
@@ -23,9 +24,13 @@ const Homepage = () => {
     return () => window.removeEventListener('languageChange', handleLanguageChange);
   }, []);
 
-  const pageTitle = currentLanguage === 'hi' ?'CreatorBazaar - भारतीय रचनाकारों का डिजिटल मार्केटप्लेस' :'CreatorBazaar - Digital Marketplace for Indian Creators';
+  const pageTitle = currentLanguage === 'hi' 
+    ? 'CreatorBazaar - भारतीय रचनाकारों का डिजिटल मार्केटप्लेस' 
+    : 'CreatorBazaar - Digital Marketplace for Indian Creators';
 
-  const pageDescription = currentLanguage === 'hi' ?'भारतीय रचनाकारों के लिए डिजिटल उत्पाद बेचने का सबसे आसान तरीका। UPI के साथ तुरंत पेमेंट पाएं। एक बार अपलोड करें, हमेशा के लिए बेचें।' :'The easiest way for Indian creators to sell digital products. Get paid instantly with UPI. Upload once, sell forever.';
+  const pageDescription = currentLanguage === 'hi' 
+    ? 'भारतीय रचनाकारों के लिए डिजिटल उत्पाद बेचने का सबसे आसान तरीका। UPI के साथ तुरंत पेमेंट पाएं। एक बार अपलोड करें, हमेशा के लिए बेचें।' 
+    : 'The easiest way for Indian creators to sell digital products. Get paid instantly with UPI. Upload once, sell forever.';
 
   return (
     <>
@@ -62,7 +67,7 @@ const Homepage = () => {
       <div className="min-h-screen bg-background">
         <Header />
         
-        <main className="pt-16">
+        <main className="pt-16 pb-20 md:pb-0">
           <HeroSection currentLanguage={currentLanguage} />
           <ProcessSteps currentLanguage={currentLanguage} />
           <StatsSection currentLanguage={currentLanguage} />
@@ -71,6 +76,7 @@ const Homepage = () => {
 
         <Footer currentLanguage={currentLanguage} />
         <FloatingFeedback currentLanguage={currentLanguage} />
+        <MobileNavigation />
       </div>
     </>
   );

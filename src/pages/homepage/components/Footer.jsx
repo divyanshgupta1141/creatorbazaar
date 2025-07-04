@@ -13,35 +13,26 @@ const Footer = ({ currentLanguage }) => {
       links: [
         { label: currentLanguage === 'hi' ? 'अपलोड करें' : 'Upload', path: '/product-upload' },
         { label: currentLanguage === 'hi' ? 'डैशबोर्ड' : 'Dashboard', path: '/creator-dashboard' },
-        { label: currentLanguage === 'hi' ? 'प्रबंधन' : 'Manage', path: '/individual-product-management' },
-        { label: currentLanguage === 'hi' ? 'एनालिटिक्स' : 'Analytics', path: '/creator-dashboard' }
-      ]
-    },
-    company: {
-      title: currentLanguage === 'hi' ? 'कंपनी' : 'Company',
-      links: [
-        { label: currentLanguage === 'hi' ? 'हमारे बारे में' : 'About Us', path: '/about' },
-        { label: currentLanguage === 'hi' ? 'करियर' : 'Careers', path: '/careers' },
-        { label: currentLanguage === 'hi' ? 'ब्लॉग' : 'Blog', path: '/blog' },
-        { label: currentLanguage === 'hi' ? 'संपर्क' : 'Contact', path: '/contact' }
+        { label: currentLanguage === 'hi' ? 'खोजें' : 'Explore', path: '/explore' },
+        { label: currentLanguage === 'hi' ? 'मूल्य निर्धारण' : 'Pricing', path: '/pricing' }
       ]
     },
     support: {
       title: currentLanguage === 'hi' ? 'सहायता' : 'Support',
       links: [
         { label: currentLanguage === 'hi' ? 'हेल्प सेंटर' : 'Help Center', path: '/help' },
-        { label: currentLanguage === 'hi' ? 'FAQ' : 'FAQ', path: '/faq' },
+        { label: currentLanguage === 'hi' ? 'संपर्क' : 'Contact', path: '/contact' },
         { label: currentLanguage === 'hi' ? 'कम्युनिटी' : 'Community', path: '/community' },
-        { label: currentLanguage === 'hi' ? 'स्टेटस' : 'Status', path: '/status' }
+        { label: currentLanguage === 'hi' ? 'ब्लॉग' : 'Blog', path: '/blog' }
       ]
     },
     legal: {
       title: currentLanguage === 'hi' ? 'कानूनी' : 'Legal',
       links: [
-        { label: currentLanguage === 'hi' ? 'प्राइवेसी पॉलिसी' : 'Privacy Policy', path: '/privacy' },
         { label: currentLanguage === 'hi' ? 'नियम और शर्तें' : 'Terms of Service', path: '/terms' },
-        { label: currentLanguage === 'hi' ? 'कुकी पॉलिसी' : 'Cookie Policy', path: '/cookies' },
-        { label: currentLanguage === 'hi' ? 'रिफंड पॉलिसी' : 'Refund Policy', path: '/refund' }
+        { label: currentLanguage === 'hi' ? 'प्राइवेसी पॉलिसी' : 'Privacy Policy', path: '/privacy' },
+        { label: currentLanguage === 'hi' ? 'रिफंड पॉलिसी' : 'Refund Policy', path: '/refunds' },
+        { label: currentLanguage === 'hi' ? 'कुकी पॉलिसी' : 'Cookie Policy', path: '/cookies' }
       ]
     }
   };
@@ -58,13 +49,13 @@ const Footer = ({ currentLanguage }) => {
   };
 
   return (
-    <footer className="bg-footer-black text-white">
+    <footer className="bg-dark-bg text-white">
       <div className="container-responsive">
         {/* Main Footer Content */}
         <div className="py-16">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-12">
             {/* Brand Section */}
-            <div className="lg:col-span-2">
+            <div className="lg:col-span-1">
               <motion.div
                 className="flex items-center space-x-2 mb-6"
                 initial={{ opacity: 0, y: 20 }}
@@ -129,13 +120,13 @@ const Footer = ({ currentLanguage }) => {
                 transition={{ duration: 0.6, delay: 0.1 * (sectionIndex + 1) }}
                 viewport={{ once: true }}
               >
-                <h3 className="text-lg font-semibold mb-4">{section.title}</h3>
-                <ul className="space-y-3">
+                <h3 className="text-lg font-semibold mb-6">{section.title}</h3>
+                <ul className="space-y-4">
                   {section.links.map((link, linkIndex) => (
                     <li key={linkIndex}>
                       <button
                         onClick={() => handleNavigation(link.path)}
-                        className="text-white/80 hover:text-white transition-colors duration-200 text-left"
+                        className="text-white/80 hover:text-white transition-colors duration-200 text-left touch-target"
                       >
                         {link.label}
                       </button>
@@ -171,9 +162,9 @@ const Footer = ({ currentLanguage }) => {
               <input
                 type="email"
                 placeholder={currentLanguage === 'hi' ? 'आपका ईमेल' : 'Your email'}
-                className="flex-1 px-4 py-3 bg-white/10 border border-white/20 rounded-l-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+                className="flex-1 px-4 py-3 bg-white/10 border border-white/20 rounded-l-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent min-h-touch"
               />
-              <button className="px-6 py-3 bg-accent hover:bg-accent/90 rounded-r-lg transition-colors duration-200 flex items-center">
+              <button className="px-6 py-3 bg-accent hover:bg-accent/90 rounded-r-lg transition-colors duration-200 flex items-center min-h-touch">
                 <Icon name="Send" size={20} />
               </button>
             </div>

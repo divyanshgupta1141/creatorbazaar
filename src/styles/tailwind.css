@@ -7,17 +7,16 @@
 @layer base {
   :root {
     /* CreatorBazaar Brand Colors */
-    --color-primary: #003366;
-    --color-secondary: #0483B8;
-    --color-accent: #00B4C6;
-    --color-highlight: #FFC100;
-    --color-dark-bg: #04253C;
-    --color-dark-surface: #0B1426;
-    --color-dark-card: #1A2332;
-    --color-footer-black: #0B0B0B;
+    --color-primary: #005F6B;
+    --color-secondary: #88B04B;
+    --color-accent: #FF6B6B;
+    --color-highlight: #FFD166;
+    --color-dark-bg: #2C3E50;
+    --color-dark-surface: #34495E;
+    --color-dark-card: #3C4F66;
     
     /* Text Colors */
-    --color-text-primary: #04253C;
+    --color-text-primary: #2C3E50;
     --color-text-secondary: #6B7280;
     --color-text-tertiary: #9CA3AF;
     --color-text-inverse: #FFFFFF;
@@ -27,9 +26,9 @@
     --color-surface: #FFFFFF;
     
     /* Status Colors */
-    --color-success: #10B981;
-    --color-warning: #F59E0B;
-    --color-error: #EF4444;
+    --color-success: #88B04B;
+    --color-warning: #FFD166;
+    --color-error: #FF6B6B;
     
     /* Border Colors */
     --color-border: #E5E7EB;
@@ -37,7 +36,7 @@
     /* Shadows */
     --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     --shadow-card-hover: 0 10px 40px -10px rgba(0, 0, 0, 0.15);
-    --shadow-glow: 0 0 20px rgba(0, 180, 198, 0.3);
+    --shadow-glow: 0 0 20px rgba(255, 107, 107, 0.3);
     
     /* Transitions */
     --transition-spring: cubic-bezier(0.4, 0, 0.2, 1);
@@ -107,15 +106,19 @@
   }
 
   .btn-primary {
-    @apply bg-primary hover:bg-primary-600 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg;
-  }
-
-  .btn-highlight {
-    @apply bg-highlight hover:bg-highlight-600 text-black font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg;
+    @apply bg-primary hover:bg-primary-600 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg min-h-touch;
   }
 
   .btn-accent {
-    @apply bg-accent hover:bg-accent-600 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg;
+    @apply bg-accent hover:bg-accent-600 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg min-h-touch;
+  }
+
+  .btn-highlight {
+    @apply bg-highlight hover:bg-highlight-600 text-black font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg min-h-touch;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary hover:bg-secondary-600 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg min-h-touch;
   }
 
   .container-responsive {
@@ -128,6 +131,18 @@
 
   .touch-target {
     @apply min-h-touch min-w-touch;
+  }
+
+  .mobile-nav-item {
+    @apply flex flex-col items-center justify-center py-2 px-3 text-xs font-medium transition-colors duration-200 min-h-touch;
+  }
+
+  .mobile-nav-item.active {
+    @apply text-primary;
+  }
+
+  .mobile-nav-item:not(.active) {
+    @apply text-text-secondary;
   }
 }
 
@@ -200,10 +215,10 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 51, 102, 0.3);
+  background: rgba(0, 95, 107, 0.3);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 51, 102, 0.5);
+  background: rgba(0, 95, 107, 0.5);
 }

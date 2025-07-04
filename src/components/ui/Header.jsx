@@ -39,7 +39,7 @@ const Header = () => {
       setIsAuthenticated(false);
       navigate('/homepage');
     } else {
-      navigate('/authentication-modal');
+      navigate('/login');
     }
   };
 
@@ -48,6 +48,11 @@ const Header = () => {
       label: currentLanguage === 'hi' ? 'होम' : 'Home', 
       path: '/homepage',
       icon: 'Home'
+    },
+    { 
+      label: currentLanguage === 'hi' ? 'खोजें' : 'Explore', 
+      path: '/explore',
+      icon: 'Search'
     },
     { 
       label: currentLanguage === 'hi' ? 'अपलोड' : 'Upload', 
@@ -59,12 +64,6 @@ const Header = () => {
       label: currentLanguage === 'hi' ? 'डैशबोर्ड' : 'Dashboard', 
       path: '/creator-dashboard',
       icon: 'LayoutDashboard',
-      requiresAuth: true
-    },
-    { 
-      label: currentLanguage === 'hi' ? 'उत्पाद प्रबंधन' : 'Manage Products', 
-      path: '/individual-product-management',
-      icon: 'Package',
       requiresAuth: true
     }
   ];
@@ -188,7 +187,7 @@ const Header = () => {
                   <button
                     onClick={() => handleLanguageChange('en')}
                     className={`px-3 py-1 rounded-md text-sm font-medium transition-colors duration-200 ${
-                      currentLanguage === 'en' ?'bg-primary text-primary-foreground' :'text-text-secondary hover:text-primary hover:bg-primary-50'
+                      currentLanguage === 'en' ? 'bg-primary text-primary-foreground' : 'text-text-secondary hover:text-primary hover:bg-primary-50'
                     }`}
                   >
                     EN
@@ -196,7 +195,7 @@ const Header = () => {
                   <button
                     onClick={() => handleLanguageChange('hi')}
                     className={`px-3 py-1 rounded-md text-sm font-medium transition-colors duration-200 ${
-                      currentLanguage === 'hi' ?'bg-primary text-primary-foreground' :'text-text-secondary hover:text-primary hover:bg-primary-50'
+                      currentLanguage === 'hi' ? 'bg-primary text-primary-foreground' : 'text-text-secondary hover:text-primary hover:bg-primary-50'
                     }`}
                   >
                     हिं

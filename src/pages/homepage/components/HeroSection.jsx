@@ -40,7 +40,7 @@ const HeroSection = ({ currentLanguage }) => {
               transition={{ duration: 1, delay: 0.2 }}
             >
               <motion.span
-                className="inline-block bg-gradient-to-r from-white via-accent-200 to-highlight bg-clip-text text-transparent"
+                className="inline-block bg-gradient-to-r from-white via-highlight to-accent bg-clip-text text-transparent"
                 animate={{
                   backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
                 }}
@@ -57,7 +57,7 @@ const HeroSection = ({ currentLanguage }) => {
               </motion.span>
               <br />
               <motion.span
-                className="inline-block bg-gradient-to-r from-highlight via-accent-300 to-white bg-clip-text text-transparent"
+                className="inline-block bg-gradient-to-r from-highlight via-accent to-white bg-clip-text text-transparent"
                 animate={{
                   backgroundPosition: ['100% 50%', '0% 50%', '100% 50%'],
                 }}
@@ -130,7 +130,7 @@ const HeroSection = ({ currentLanguage }) => {
             </motion.div>
           </motion.div>
 
-          {/* Stats Preview - Removed fake stats */}
+          {/* Real Stats Only */}
           <motion.div
             className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto"
             initial={{ opacity: 0, y: 30 }}
@@ -139,20 +139,20 @@ const HeroSection = ({ currentLanguage }) => {
           >
             {[
               { 
-                number: currentLanguage === 'hi' ? 'जल्द आ रहा है' : 'Coming Soon', 
-                label: currentLanguage === 'hi' ? 'कुल कमाई' : 'Total Earnings' 
-              },
-              { 
                 number: currentLanguage === 'hi' ? 'बीटा में' : 'Beta Launch', 
-                label: currentLanguage === 'hi' ? 'रचनाकार' : 'Creators' 
-              },
-              { 
-                number: currentLanguage === 'hi' ? 'शुरुआत' : 'Starting', 
-                label: currentLanguage === 'hi' ? 'उत्पाद' : 'Products' 
+                label: currentLanguage === 'hi' ? 'प्लेटफॉर्म' : 'Platform' 
               },
               { 
                 number: '0%', 
                 label: currentLanguage === 'hi' ? 'प्लेटफॉर्म फीस' : 'Platform Fee' 
+              },
+              { 
+                number: currentLanguage === 'hi' ? 'तुरंत' : 'Instant', 
+                label: currentLanguage === 'hi' ? 'UPI पेमेंट' : 'UPI Payments' 
+              },
+              { 
+                number: '100%', 
+                label: currentLanguage === 'hi' ? 'आपकी कमाई' : 'Your Earnings' 
               }
             ].map((stat, index) => (
               <motion.div

@@ -1,11 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import Image from '../../../components/AppImage';
+import { useNavigate } from 'react-router-dom';
 import Icon from '../../../components/AppIcon';
+import Button from '../../../components/ui/Button';
 
 const TestimonialsSection = ({ currentLanguage }) => {
-  // Removed fake testimonials - showing placeholder for beta launch
-  const placeholderContent = {
+  const navigate = useNavigate();
+
+  const content = {
     en: {
       title: "Join the Beta Launch",
       subtitle: "Be among the first creators to launch on CreatorBazaar",
@@ -16,7 +18,8 @@ const TestimonialsSection = ({ currentLanguage }) => {
         "Early access to new features",
         "Featured creator spotlight"
       ],
-      cta: "Join Beta Program"
+      cta: "Join Beta Program",
+      faq: "Frequently Asked Questions"
     },
     hi: {
       title: "बीटा लॉन्च में शामिल हों",
@@ -28,11 +31,33 @@ const TestimonialsSection = ({ currentLanguage }) => {
         "नई सुविधाओं तक जल्दी पहुंच",
         "फीचर्ड क्रिएटर स्पॉटलाइट"
       ],
-      cta: "बीटा प्रोग्राम में शामिल हों"
+      cta: "बीटा प्रोग्राम में शामिल हों",
+      faq: "अक्सर पूछे जाने वाले प्रश्न"
     }
   };
 
-  const content = placeholderContent[currentLanguage] || placeholderContent.en;
+  const text = content[currentLanguage] || content.en;
+
+  const faqs = [
+    {
+      question: currentLanguage === 'hi' ? 'CreatorBazaar क्या है?' : 'What is CreatorBazaar?',
+      answer: currentLanguage === 'hi' 
+        ? 'CreatorBazaar एक डिजिटल मार्केटप्लेस है जहाँ भारतीय रचनाकार अपने डिजिटल उत्पाद बेच सकते हैं और UPI के माध्यम से तुरंत पेमेंट प्राप्त कर सकते हैं।'
+        : 'CreatorBazaar is a digital marketplace where Indian creators can sell their digital products and receive instant payments via UPI.'
+    },
+    {
+      question: currentLanguage === 'hi' ? 'कौन से उत्पाद बेच सकते हैं?' : 'What products can I sell?',
+      answer: currentLanguage === 'hi' 
+        ? 'आप PDF, वीडियो कोर्स, टेम्प्लेट्स, ई-बुक्स, डिज़ाइन फाइलें और अन्य डिजिटल उत्पाद बेच सकते हैं।'
+        : 'You can sell PDFs, video courses, templates, e-books, design files, and other digital products.'
+    },
+    {
+      question: currentLanguage === 'hi' ? 'प्लेटफॉर्म फीस कितनी है?' : 'What are the platform fees?',
+      answer: currentLanguage === 'hi' 
+        ? 'बीटा अवधि के दौरान 0% प्लेटफॉर्म फीस। आपकी 100% कमाई आपकी!'
+        : '0% platform fees during beta period. Keep 100% of your earnings!'
+    }
+  ];
 
   return (
     <section className="py-20 bg-surface">
@@ -45,16 +70,17 @@ const TestimonialsSection = ({ currentLanguage }) => {
           viewport={{ once: true }}
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-6">
-            {content.title}
+            {text.title}
           </h2>
           <p className="text-xl text-text-secondary max-w-3xl mx-auto">
-            {content.subtitle}
+            {text.subtitle}
           </p>
         </motion.div>
 
-        <div className="max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+          {/* Beta Program CTA */}
           <motion.div
-            className="bg-gradient-to-br from-primary-50 to-accent-50 rounded-2xl p-8 lg:p-12 text-center border border-primary-200"
+            className="bg-gradient-to-br from-primary-50 to-accent-50 rounded-2xl p-8 border border-primary-200"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -64,15 +90,15 @@ const TestimonialsSection = ({ currentLanguage }) => {
               <Icon name="Rocket" size={40} color="white" strokeWidth={2} />
             </div>
 
-            <h3 className="text-2xl sm:text-3xl font-bold text-primary mb-4">
-              {content.description}
+            <h3 className="text-2xl font-bold text-primary mb-4 text-center">
+              {text.description}
             </h3>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-8 max-w-2xl mx-auto">
-              {content.benefits.map((benefit, index) => (
+            <div className="space-y-3 mb-6">
+              {text.benefits.map((benefit, index) => (
                 <motion.div
                   key={index}
-                  className="flex items-center space-x-3 text-left"
+                  className="flex items-center space-x-3"
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -87,14 +113,48 @@ const TestimonialsSection = ({ currentLanguage }) => {
             </div>
 
             <motion.div
-              className="mt-8"
+              className="text-center"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <button className="btn-highlight text-lg px-8 py-4">
-                {content.cta}
-              </button>
+              <Button
+                variant="primary"
+                onClick={() => navigate('/signup')}
+                iconName="ArrowRight"
+                iconPosition="right"
+                className="w-full sm:w-auto px-8 py-4 text-lg font-semibold"
+              >
+                {text.cta}
+              </Button>
             </motion.div>
+          </motion.div>
+
+          {/* FAQ Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            <h3 className="text-2xl font-bold text-primary mb-6">{text.faq}</h3>
+            <div className="space-y-4">
+              {faqs.map((faq, index) => (
+                <motion.div
+                  key={index}
+                  className="bg-background rounded-lg border border-border p-6"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <h4 className="font-semibold text-text-primary mb-2 flex items-center space-x-2">
+                    <Icon name="HelpCircle" size={16} className="text-primary" />
+                    <span>{faq.question}</span>
+                  </h4>
+                  <p className="text-text-secondary leading-relaxed">{faq.answer}</p>
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
         </div>
 
