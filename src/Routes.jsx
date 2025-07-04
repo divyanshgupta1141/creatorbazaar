@@ -12,6 +12,7 @@ import ProductDetailPage from "pages/product-detail-page";
 import ProductUpload from "pages/product-upload";
 import CreatorDashboard from "pages/creator-dashboard";
 import IndividualProductManagement from "pages/individual-product-management";
+import UploadPage from "pages/dashboard/upload";
 import ProductsPage from "pages/dashboard/products";
 import CollaboratorsPage from "pages/dashboard/collaborators";
 import EmailsPage from "pages/dashboard/emails";
@@ -46,6 +47,7 @@ const Routes = () => {
         <Route path="/product-upload" element={<ProductUpload />} />
         <Route path="/upload-product" element={<ProductUpload />} />
         <Route path="/creator-dashboard" element={<CreatorDashboard />} />
+        <Route path="/dashboard/upload" element={<UploadPage />} />
         <Route path="/dashboard" element={<CreatorDashboard />} />
         <Route path="/dashboard/products" element={<ProductsPage />} />
         <Route path="/dashboard/collaborators" element={<CollaboratorsPage />} />

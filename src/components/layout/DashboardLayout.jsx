@@ -48,7 +48,7 @@ const DashboardLayout = ({ children, currentPage }) => {
   const sidebarItems = [
     { icon: 'Home', label: currentLanguage === 'hi' ? 'होम' : 'Home', path: '/creator-dashboard', key: 'home' },
     { icon: 'Package', label: currentLanguage === 'hi' ? 'उत्पाद' : 'Products', path: '/dashboard/products', key: 'products' },
-    { icon: 'Upload', label: currentLanguage === 'hi' ? 'अपलोड' : 'Upload', path: '/product-upload', key: 'upload' },
+    { icon: 'Upload', label: currentLanguage === 'hi' ? 'अपलोड' : 'Upload', path: '/dashboard/upload', key: 'upload' },
     { icon: 'Users', label: currentLanguage === 'hi' ? 'सहयोगी' : 'Collaborators', path: '/dashboard/collaborators', key: 'collaborators' },
     { icon: 'Mail', label: currentLanguage === 'hi' ? 'ईमेल' : 'Emails', path: '/dashboard/emails', key: 'emails' },
     { icon: 'DollarSign', label: currentLanguage === 'hi' ? 'बिक्री' : 'Sales', path: '/dashboard/sales', key: 'sales' },
