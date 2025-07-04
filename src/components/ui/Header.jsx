@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Icon from '../AppIcon';
+import { isAuthenticated, logoutUser } from '../../utils/authUtils';
 import Button from './Button';
 
 const Header = () => {
@@ -11,7 +12,7 @@ const Header = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
-    const authStatus = localStorage.getItem('isAuthenticated') === 'true';
+    const authStatus = isAuthenticated();
     setIsAuthenticated(authStatus);
 
     // Initialize dark mode from localStorage
@@ -25,6 +26,21 @@ const Header = () => {
       document.documentElement.classList.remove('dark');
     }
   }, []);
+
+  useEffect(() => {
+    // Check if user is authenticated and on a public route - redirect to dashboard
+    if (isAuthenticated() && 
+        (location.pathname === '/' || 
+         location.pathname === '/homepage' || 
+         location.pathname === '/pricing' || 
+         location.pathname === '/help' || 
+         location.pathname === '/contact' || 
+         location.pathname === '/explore' || 
+         location.pathname === '/marketplace' || 
+         location.pathname.startsWith('/category/'))) {
+      navigate('/dashboard');
+    }
+  }, [location.pathname, navigate]);
 
   const toggleDarkMode = () => {
     const newDarkMode = !isDarkMode;
@@ -49,11 +65,11 @@ const Header = () => {
 
   const handleAuthAction = () => {
     if (isAuthenticated) {
-      localStorage.removeItem('isAuthenticated');
+      logoutUser();
       setIsAuthenticated(false);
       navigate('/homepage');
     } else {
-      navigate('/authentication-modal');
+      navigate('/login');
     }
   };
 
@@ -72,19 +88,25 @@ const Header = () => {
       label: 'Upload', 
       path: '/product-upload',
       icon: 'Upload',
-      requiresAuth: true
+      requiresAuth: true,
+      dashboardLink: '/dashboard/upload'
     },
     { 
       label: 'Dashboard', 
       path: '/creator-dashboard',
       icon: 'LayoutDashboard',
-      requiresAuth: true
+      requiresAuth: true,
+      dashboardLink: '/dashboard'
     }
   ];
 
   const filteredNavItems = navigationItems.filter(item => 
     !item.requiresAuth || isAuthenticated
   );
+    // Replace paths with dashboard paths for authenticated users
+    if (isAuthenticated && item.dashboardLink) {
+      return {...item, path: item.dashboardLink};
+    }
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-surface/95 backdrop-blur-[25px] border-b border-border shadow-sm transition-colors duration-300">
