@@ -33,10 +33,17 @@ const Routes = () => {
         <Route path="/authentication-modal" element={<AuthenticationModal />} />
         <Route path="/product-detail-page" element={<ProductDetailPage />} />
         <Route path="/product-detail-page/:id" element={<ProductDetailPage />} />
+        <Route path="/product/:id" element={<ProductDetailPage />} />
         <Route path="/product-upload" element={<ProductUpload />} />
+        <Route path="/upload-product" element={<ProductUpload />} />
         <Route path="/creator-dashboard" element={<CreatorDashboard />} />
+        <Route path="/dashboard" element={<CreatorDashboard />} />
         <Route path="/individual-product-management" element={<IndividualProductManagement />} />
         <Route path="/explore" element={<ExplorePage />} />
+        <Route path="/marketplace" element={<ExplorePage />} />
+        <Route path="/category/:slug" element={<ExplorePage />} />
+        <Route path="/checkout" element={<ProductDetailPage />} />
+        <Route path="/creator/:username" element={<CreatorDashboard />} />
         <Route path="/terms" element={<TermsPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/refunds" element={<RefundsPage />} />

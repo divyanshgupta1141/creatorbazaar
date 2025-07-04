@@ -3,6 +3,8 @@ import { Helmet } from 'react-helmet';
 import Header from '../../components/ui/Header';
 import MobileNavigation from '../../components/ui/MobileNavigation';
 import HeroSection from './components/HeroSection';
+import WhyCreatorsChoose from './components/WhyCreatorsChoose';
+import ProductCategories from './components/ProductCategories';
 import ProcessSteps from './components/ProcessSteps';
 import StatsSection from './components/StatsSection';
 import TestimonialsSection from './components/TestimonialsSection';
@@ -64,11 +66,13 @@ const Homepage = () => {
         </script>
       </Helmet>
 
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background dark:bg-dark-bg">
         <Header />
         
         <main className="pt-16 pb-20 md:pb-0">
           <HeroSection currentLanguage={currentLanguage} />
+          <WhyCreatorsChoose currentLanguage={currentLanguage} />
+          <ProductCategories currentLanguage={currentLanguage} />
           <ProcessSteps currentLanguage={currentLanguage} />
           <StatsSection currentLanguage={currentLanguage} />
           <TestimonialsSection currentLanguage={currentLanguage} />

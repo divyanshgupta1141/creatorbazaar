@@ -8,7 +8,7 @@ const HeroSection = ({ currentLanguage }) => {
   const navigate = useNavigate();
 
   const handleStartSelling = () => {
-    navigate('/product-upload');
+    navigate('/authentication-modal');
   };
 
   const handleViewProducts = () => {
@@ -88,7 +88,7 @@ const HeroSection = ({ currentLanguage }) => {
             </motion.p>
           </motion.div>
 
-          {/* Dual CTA Buttons */}
+          {/* Equal-sized CTA Buttons */}
           <motion.div
             className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
             initial={{ opacity: 0, y: 30 }}
@@ -104,9 +104,8 @@ const HeroSection = ({ currentLanguage }) => {
                 variant="primary"
                 size="xl"
                 onClick={handleStartSelling}
-                iconName="Zap"
-                iconPosition="left"
-                className="bg-highlight hover:bg-highlight-600 text-black font-bold px-8 py-4 text-lg shadow-2xl glow-effect w-full sm:w-auto"
+                fullWidth
+                className="bg-highlight hover:bg-highlight-600 text-black font-bold px-8 py-4 text-lg shadow-2xl glow-effect w-full sm:w-64 h-14"
               >
                 {currentLanguage === 'hi' ? 'बेचना शुरू करें' : 'Start Selling Now'}
               </Button>
@@ -119,18 +118,19 @@ const HeroSection = ({ currentLanguage }) => {
             >
               <Button
                 variant="outline"
-                size="lg"
+                size="xl"
                 onClick={handleViewProducts}
                 iconName="Search"
                 iconPosition="left"
-                className="border-white/30 text-white hover:bg-white/10 backdrop-blur-sm w-full sm:w-auto bg-white/5 hover:text-white"
+                fullWidth
+                className="border-white/30 text-white hover:bg-white/10 backdrop-blur-sm bg-white/5 hover:text-white px-8 py-4 text-lg w-full sm:w-64 h-14"
               >
                 {currentLanguage === 'hi' ? 'उत्पाद देखें' : 'View Products'}
               </Button>
             </motion.div>
           </motion.div>
 
-          {/* Real Stats Only - No Dropdown Arrows */}
+          {/* Stats Cards - Remove dropdown arrows */}
           <motion.div
             className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto"
             initial={{ opacity: 0, y: 30 }}
