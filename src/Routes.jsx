@@ -12,6 +12,15 @@ import ProductDetailPage from "pages/product-detail-page";
 import ProductUpload from "pages/product-upload";
 import CreatorDashboard from "pages/creator-dashboard";
 import IndividualProductManagement from "pages/individual-product-management";
+import ProductsPage from "pages/dashboard/products";
+import CollaboratorsPage from "pages/dashboard/collaborators";
+import EmailsPage from "pages/dashboard/emails";
+import SalesPage from "pages/dashboard/sales";
+import AnalyticsPage from "pages/dashboard/analytics";
+import SettingsPage from "pages/dashboard/settings";
+import PricingPage from "pages/pricing";
+import HelpPage from "pages/help";
+import ContactPage from "pages/contact";
 import ExplorePage from "pages/explore";
 import TermsPage from "pages/terms";
 import PrivacyPage from "pages/privacy";
@@ -38,7 +47,16 @@ const Routes = () => {
         <Route path="/upload-product" element={<ProductUpload />} />
         <Route path="/creator-dashboard" element={<CreatorDashboard />} />
         <Route path="/dashboard" element={<CreatorDashboard />} />
+        <Route path="/dashboard/products" element={<ProductsPage />} />
+        <Route path="/dashboard/collaborators" element={<CollaboratorsPage />} />
+        <Route path="/dashboard/emails" element={<EmailsPage />} />
+        <Route path="/dashboard/sales" element={<SalesPage />} />
+        <Route path="/dashboard/analytics" element={<AnalyticsPage />} />
+        <Route path="/dashboard/settings" element={<SettingsPage />} />
         <Route path="/individual-product-management" element={<IndividualProductManagement />} />
+        <Route path="/pricing" element={<PricingPage />} />
+        <Route path="/help" element={<HelpPage />} />
+        <Route path="/contact" element={<ContactPage />} />
         <Route path="/explore" element={<ExplorePage />} />
         <Route path="/marketplace" element={<ExplorePage />} />
         <Route path="/category/:slug" element={<ExplorePage />} />

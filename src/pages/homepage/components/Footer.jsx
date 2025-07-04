@@ -22,8 +22,8 @@ const Footer = ({ currentLanguage }) => {
       links: [
         { label: currentLanguage === 'hi' ? 'हेल्प सेंटर' : 'Help Center', path: '/help' },
         { label: currentLanguage === 'hi' ? 'संपर्क' : 'Contact', path: '/contact' },
-        { label: currentLanguage === 'hi' ? 'कम्युनिटी' : 'Community', path: '/community' },
-        { label: currentLanguage === 'hi' ? 'ब्लॉग' : 'Blog', path: '/blog' }
+        { label: currentLanguage === 'hi' ? 'नियम और शर्तें' : 'Terms', path: '/terms' },
+        { label: currentLanguage === 'hi' ? 'गोपनीयता' : 'Privacy', path: '/privacy' }
       ]
     },
     legal: {
@@ -32,7 +32,7 @@ const Footer = ({ currentLanguage }) => {
         { label: currentLanguage === 'hi' ? 'नियम और शर्तें' : 'Terms of Service', path: '/terms' },
         { label: currentLanguage === 'hi' ? 'प्राइवेसी पॉलिसी' : 'Privacy Policy', path: '/privacy' },
         { label: currentLanguage === 'hi' ? 'रिफंड पॉलिसी' : 'Refund Policy', path: '/refunds' },
-        { label: currentLanguage === 'hi' ? 'कुकी पॉलिसी' : 'Cookie Policy', path: '/cookies' }
+        { label: currentLanguage === 'hi' ? 'संपर्क' : 'Contact', path: '/contact' }
       ]
     }
   };
