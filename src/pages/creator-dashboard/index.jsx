@@ -4,22 +4,10 @@ import { motion } from 'framer-motion';
 import Header from '../../components/ui/Header';
 import Icon from '../../components/AppIcon';
 import Button from '../../components/ui/Button';
-import Input from '../../components/ui/Input';
-import DashboardCards from './components/DashboardCards';
-import EarningsSummary from './components/EarningsSummary';
-import ProductCard from './components/ProductCard';
-import UpiSetup from './components/UpiSetup';
-import AnalyticsChart from './components/AnalyticsChart';
-import QuickActions from './components/QuickActions';
 
 const CreatorDashboard = () => {
   const navigate = useNavigate();
   const [currentLanguage, setCurrentLanguage] = useState('en');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [filterStatus, setFilterStatus] = useState('all');
-  const [sortBy, setSortBy] = useState('recent');
-  const [showMobileFilters, setShowMobileFilters] = useState(false);
-  const [selectedProducts, setSelectedProducts] = useState([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
@@ -31,257 +19,330 @@ const CreatorDashboard = () => {
     };
 
     window.addEventListener('languageChange', handleLanguageChange);
-    return () => window.removeEventListener('languageChange', handleLanguageChange);
 
     // Check authentication
     const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
     if (!isAuthenticated) {
       navigate('/authentication-modal');
     }
+
+    return () => window.removeEventListener('languageChange', handleLanguageChange);
   }, [navigate]);
-
-  // Mock products data - removed fake products for beta
-  const mockProducts = [];
-
-  // Filter and sort products
-  const filteredProducts = mockProducts
-    .filter(product => {
-      const matchesSearch = product.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                           product.description.toLowerCase().includes(searchQuery.toLowerCase());
-      const matchesStatus = filterStatus === 'all' || product.status === filterStatus;
-      return matchesSearch && matchesStatus;
-    })
-    .sort((a, b) => {
-      switch (sortBy) {
-        case 'recent':
-          return new Date(b.createdAt) - new Date(a.createdAt);
-        case 'revenue':
-          return b.revenue - a.revenue;
-        case 'sales':
-          return b.sales - a.sales;
-        case 'views':
-          return b.views - a.views;
-        case 'price-high':
-          return b.price - a.price;
-        case 'price-low':
-          return a.price - b.price;
-        default:
-          return 0;
-      }
-    });
-
-  const handleProductEdit = (product) => {
-    navigate('/individual-product-management', { state: { editProduct: product } });
-  };
-
-  const handleProductDelete = (product) => {
-    if (window.confirm(currentLanguage === 'hi' 
-      ? `क्या आप वाकई "${product.title}" को हटाना चाहते हैं?`
-      : `Are you sure you want to delete "${product.title}"?`
-    )) {
-      alert(currentLanguage === 'hi' ? 'उत्पाद सफलतापूर्वक हटा दिया गया!' : 'Product deleted successfully!');
-    }
-  };
-
-  const handleToggleStatus = (product) => {
-    const newStatus = product.status === 'active' ? 'inactive' : 'active';
-    alert(currentLanguage === 'hi' 
-      ? `उत्पाद स्थिति "${newStatus}" में बदल दी गई!`
-      : `Product status changed to "${newStatus}"!`
-    );
-  };
-
-  const handleCopyLink = (product) => {
-    const productUrl = `${window.location.origin}/p/${product.id}`;
-    navigator.clipboard.writeText(productUrl);
-    alert(currentLanguage === 'hi' ? 'उत्पाद लिंक कॉपी हो गया!' : 'Product link copied!');
-  };
-
-  const statusOptions = [
-    { value: 'all', label: currentLanguage === 'hi' ? 'सभी' : 'All' },
-    { value: 'active', label: currentLanguage === 'hi' ? 'सक्रिय' : 'Active' },
-    { value: 'draft', label: currentLanguage === 'hi' ? 'मसौदा' : 'Draft' },
-    { value: 'inactive', label: currentLanguage === 'hi' ? 'निष्क्रिय' : 'Inactive' }
-  ];
-
-  const sortOptions = [
-    { value: 'recent', label: currentLanguage === 'hi' ? 'नवीनतम' : 'Most Recent' },
-    { value: 'revenue', label: currentLanguage === 'hi' ? 'सर्वाधिक आय' : 'Highest Revenue' },
-    { value: 'sales', label: currentLanguage === 'hi' ? 'सर्वाधिक बिक्री' : 'Most Sales' },
-    { value: 'views', label: currentLanguage === 'hi' ? 'सर्वाधिक व्यू' : 'Most Views' },
-    { value: 'price-high', label: currentLanguage === 'hi' ? 'मूल्य: उच्च से निम्न' : 'Price: High to Low' },
-    { value: 'price-low', label: currentLanguage === 'hi' ? 'मूल्य: निम्न से उच्च' : 'Price: Low to High' }
-  ];
 
   const sidebarItems = [
     { icon: 'Home', label: currentLanguage === 'hi' ? 'होम' : 'Home', path: '/creator-dashboard', active: true },
-    { icon: 'Package', label: currentLanguage === 'hi' ? 'उत्पाद' : 'Products', path: '/creator-dashboard' },
+    { icon: 'Package', label: currentLanguage === 'hi' ? 'उत्पाद' : 'Products', path: '/dashboard/products' },
     { icon: 'Upload', label: currentLanguage === 'hi' ? 'अपलोड' : 'Upload', path: '/product-upload' },
-    { icon: 'Users', label: currentLanguage === 'hi' ? 'सहयोगी' : 'Collaborators', path: '/collaborators' },
-    { icon: 'Mail', label: currentLanguage === 'hi' ? 'ईमेल' : 'Emails', path: '/emails' },
-    { icon: 'DollarSign', label: currentLanguage === 'hi' ? 'बिक्री' : 'Sales', path: '/sales' },
-    { icon: 'BarChart3', label: currentLanguage === 'hi' ? 'एनालिटिक्स' : 'Analytics', path: '/analytics' },
-    { icon: 'Settings', label: currentLanguage === 'hi' ? 'सेटिंग्स' : 'Settings', path: '/settings' },
+    { icon: 'Users', label: currentLanguage === 'hi' ? 'सहयोगी' : 'Collaborators', path: '/dashboard/collaborators' },
+    { icon: 'Mail', label: currentLanguage === 'hi' ? 'ईमेल' : 'Emails', path: '/dashboard/emails' },
+    { icon: 'DollarSign', label: currentLanguage === 'hi' ? 'बिक्री' : 'Sales', path: '/dashboard/sales' },
+    { icon: 'BarChart3', label: currentLanguage === 'hi' ? 'एनालिटिक्स' : 'Analytics', path: '/dashboard/analytics' },
+    { icon: 'Settings', label: currentLanguage === 'hi' ? 'सेटिंग्स' : 'Settings', path: '/dashboard/settings' },
   ];
 
+  const missionCards = [
+    {
+      id: 'welcome',
+      title: currentLanguage === 'hi' ? 'Welcome Aboard' : 'Welcome Aboard',
+      subtitle: currentLanguage === 'hi' ? 'Complete your profile setup' : 'Complete your profile setup',
+      status: currentLanguage === 'hi' ? 'शुरू करें' : 'Get Started',
+      progress: 75,
+      color: 'bg-blue-500',
+      path: '/dashboard/settings'
+    },
+    {
+      id: 'impression',
+      title: currentLanguage === 'hi' ? 'Make an Impression' : 'Make an Impression',
+      subtitle: currentLanguage === 'hi' ? 'Upload your first product' : 'Upload your first product',
+      status: currentLanguage === 'hi' ? 'शुरू करें' : 'Get Started',
+      progress: 0,
+      color: 'bg-emerald-500',
+      path: '/product-upload'
+    },
+    {
+      id: 'showtime',
+      title: currentLanguage === 'hi' ? 'Showtime' : 'Showtime',
+      subtitle: currentLanguage === 'hi' ? 'Publish your product' : 'Publish your product',
+      status: currentLanguage === 'hi' ? 'शुरू करें' : 'Get Started',
+      progress: 0,
+      color: 'bg-purple-500',
+      path: '/dashboard/products'
+    },
+    {
+      id: 'tribe',
+      title: currentLanguage === 'hi' ? 'Build Your Tribe' : 'Build Your Tribe',
+      subtitle: currentLanguage === 'hi' ? 'Share on social media' : 'Share on social media',
+      status: currentLanguage === 'hi' ? 'शुरू करें' : 'Get Started',
+      progress: 0,
+      color: 'bg-orange-500',
+      path: '/dashboard/emails'
+    },
+    {
+      id: 'cha-ching',
+      title: currentLanguage === 'hi' ? 'Cha-ching' : 'Cha-ching',
+      subtitle: currentLanguage === 'hi' ? 'Make your first sale' : 'Make your first sale',
+      status: currentLanguage === 'hi' ? 'शुरू करें' : 'Get Started',
+      progress: 0,
+      color: 'bg-yellow-500',
+      path: '/dashboard/sales'
+    },
+    {
+      id: 'money-inbound',
+      title: currentLanguage === 'hi' ? 'Money Inbound' : 'Money Inbound',
+      subtitle: currentLanguage === 'hi' ? 'Set up UPI payments' : 'Set up UPI payments',
+      status: currentLanguage === 'hi' ? 'प्रगति में' : 'In Progress',
+      progress: 50,
+      color: 'bg-green-600',
+      path: '/dashboard/settings'
+    },
+    {
+      id: 'waves',
+      title: currentLanguage === 'hi' ? 'Making Waves' : 'Making Waves',
+      subtitle: currentLanguage === 'hi' ? 'Check your analytics' : 'Check your analytics',
+      status: currentLanguage === 'hi' ? 'प्रगति में' : 'In Progress',
+      progress: 25,
+      color: 'bg-teal-500',
+      path: '/dashboard/analytics'
+    },
+    {
+      id: 'smart-move',
+      title: currentLanguage === 'hi' ? 'Smart Move' : 'Smart Move',
+      subtitle: currentLanguage === 'hi' ? 'Optimize your earnings' : 'Optimize your earnings',
+      status: currentLanguage === 'hi' ? 'शुरू करें' : 'Get Started',
+      progress: 10,
+      color: 'bg-indigo-500',
+      path: '/dashboard/analytics'
+    }
+  ];
+
+  const handleCardClick = (path) => {
+    navigate(path);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('isAuthenticated');
+    localStorage.removeItem('userEmail');
+    localStorage.removeItem('userName');
+    navigate('/homepage');
+  };
+
   return (
-    <div className="min-h-screen bg-dark-bg transition-colors duration-300">
+    <div className="min-h-screen bg-background flex">
       {/* Mobile Header */}
       <div className="lg:hidden">
         <Header />
       </div>
-      
-      {/* Desktop Layout */}
-      <div className="flex h-screen">
-        {/* Sidebar */}
-        <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-primary transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0`}>
-          <div className="flex items-center justify-between h-16 px-6 border-b border-primary-600">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-accent to-highlight rounded-lg flex items-center justify-center">
-                <Icon name="Zap" size={20} color="white" strokeWidth={2.5} />
-              </div>
-              <div>
-                <div className="text-lg font-bold text-white">CreatorBazaar</div>
-                <div className="text-xs text-white/60 -mt-1">
-                  {currentLanguage === 'hi' ? 'डैशबोर्ड' : 'Dashboard'}
-                </div>
-              </div>
-            </div>
-            <button
-              onClick={() => setSidebarOpen(false)}
-              className="lg:hidden p-2 text-white/60 hover:text-white"
-            >
-              <Icon name="X" size={20} />
-            </button>
-          </div>
 
-          <nav className="mt-8 px-4">
-            <div className="space-y-2">
-              {sidebarItems.map((item) => (
-                <button
-                  key={item.path}
-                  onClick={() => navigate(item.path)}
-                  className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-colors duration-200 ${
-                    item.active
-                      ? 'bg-highlight text-black font-semibold'
-                      : 'text-white/80 hover:text-white hover:bg-primary-600'
-                  }`}
-                >
-                  <Icon name={item.icon} size={20} />
-                  <span>{item.label}</span>
-                </button>
-              ))}
+      {/* Sidebar */}
+      <div className={`fixed inset-y-0 left-0 z-50 w-64 transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0`} style={{ backgroundColor: '#005F65' }}>
+        <div className="flex items-center justify-between h-16 px-6 border-b border-white/10">
+          <div className="flex items-center space-x-2">
+            <div className="w-8 h-8 bg-gradient-to-br from-highlight to-accent rounded-lg flex items-center justify-center">
+              <Icon name="Zap" size={20} color="white" strokeWidth={2.5} />
             </div>
-          </nav>
+            <div>
+              <div className="text-lg font-bold text-white">CreatorBazaar</div>
+              <div className="text-xs text-white/60 -mt-1">
+                {currentLanguage === 'hi' ? 'डैशबोर्ड' : 'Dashboard'}
+              </div>
+            </div>
+          </div>
+          <button
+            onClick={() => setSidebarOpen(false)}
+            className="lg:hidden p-2 text-white/60 hover:text-white transition-colors"
+          >
+            <Icon name="X" size={20} />
+          </button>
         </div>
 
-        {/* Main Content */}
-        <div className="flex-1 flex flex-col overflow-hidden lg:ml-0">
-          {/* Desktop Header */}
-          <div className="hidden lg:flex items-center justify-between h-16 px-8 bg-dark-surface border-b border-primary-600">
-            <div>
-              <h1 className="text-xl font-bold text-white">
-                {currentLanguage === 'hi' ? 'क्रिएटर डैशबोर्ड' : 'Creator Dashboard'}
-              </h1>
-              <p className="text-white/60 text-sm">
-                {currentLanguage === 'hi' ? 'अपने डिजिटल उत्पादों को प्रबंधित करें' : 'Manage your digital products'}
-              </p>
-            </div>
-            <div className="flex items-center space-x-4">
-              <Button
-                variant="primary"
-                onClick={() => navigate('/product-upload')}
-                iconName="Plus"
-                iconPosition="left"
-                className="bg-highlight hover:bg-highlight-600 text-black"
+        <nav className="mt-8 px-4">
+          <div className="space-y-2">
+            {sidebarItems.map((item) => (
+              <button
+                key={item.path}
+                onClick={() => {
+                  navigate(item.path);
+                  setSidebarOpen(false);
+                }}
+                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-all duration-200 min-h-[44px] ${
+                  item.active
+                    ? 'bg-highlight text-black font-semibold shadow-md'
+                    : 'text-white/80 hover:text-white hover:bg-white/10'
+                }`}
               >
-                {currentLanguage === 'hi' ? 'नया उत्पाद' : 'New Product'}
-              </Button>
-            </div>
+                <Icon name={item.icon} size={20} strokeWidth={2} />
+                <span className="font-medium">{item.label}</span>
+              </button>
+            ))}
           </div>
+        </nav>
 
-          {/* Mobile Header Toggle */}
-          <div className="lg:hidden flex items-center justify-between h-16 px-4 bg-dark-surface border-b border-primary-600">
-            <button
-              onClick={() => setSidebarOpen(true)}
-              className="p-2 text-white/60 hover:text-white"
-            >
-              <Icon name="Menu" size={24} />
-            </button>
-            <h1 className="text-lg font-bold text-white">
-              {currentLanguage === 'hi' ? 'डैशबोर्ड' : 'Dashboard'}
+        {/* Logout Button */}
+        <div className="absolute bottom-0 left-0 right-0 p-4">
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors duration-200 min-h-[44px]"
+          >
+            <Icon name="LogOut" size={20} />
+            <span className="font-medium">{currentLanguage === 'hi' ? 'लॉग आउट' : 'Logout'}</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col overflow-hidden">
+        {/* Header */}
+        <div className="hidden lg:flex items-center justify-between h-20 px-8 bg-white border-b border-gray-200">
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900">
+              {currentLanguage === 'hi' ? 'Creator Dashboard' : 'Creator Dashboard'}
             </h1>
-            <Button
-              variant="primary"
-              onClick={() => navigate('/product-upload')}
-              iconName="Plus"
-              className="bg-highlight hover:bg-highlight-600 text-black p-2"
-            />
+            <p className="text-gray-600 mt-1">
+              {currentLanguage === 'hi' ? 'अपने डिजिटल उत्पादों को प्रबंधित करें' : 'Manage your digital products'}
+            </p>
           </div>
+          <Button
+            variant="primary"
+            onClick={() => navigate('/product-upload')}
+            iconName="Plus"
+            iconPosition="left"
+            className="bg-primary hover:bg-primary-600 text-white min-h-[44px] px-6 font-semibold"
+          >
+            {currentLanguage === 'hi' ? '+ नया उत्पाद' : '+ New Product'}
+          </Button>
+        </div>
 
-          {/* Content Area */}
-          <div className="flex-1 overflow-auto bg-dark-bg">
-            <div className="container-responsive py-8">
-              {/* Dashboard Cards */}
-              <DashboardCards currentLanguage={currentLanguage} />
+        {/* Mobile Header */}
+        <div className="lg:hidden flex items-center justify-between h-16 px-4 bg-white border-b border-gray-200">
+          <button
+            onClick={() => setSidebarOpen(true)}
+            className="p-2 text-gray-600 hover:text-gray-900 min-h-[44px] min-w-[44px] flex items-center justify-center"
+          >
+            <Icon name="Menu" size={24} />
+          </button>
+          <h1 className="text-lg font-bold text-gray-900">
+            {currentLanguage === 'hi' ? 'Dashboard' : 'Dashboard'}
+          </h1>
+          <Button
+            variant="primary"
+            onClick={() => navigate('/product-upload')}
+            iconName="Plus"
+            className="bg-primary hover:bg-primary-600 text-white min-h-[44px] min-w-[44px] p-2"
+          />
+        </div>
 
-              {/* Earnings Summary */}
-              <EarningsSummary />
+        {/* Content Area */}
+        <div className="flex-1 overflow-auto bg-gray-50 p-6">
+          {/* Mission Cards Section */}
+          <div className="max-w-7xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="mb-8"
+            >
+              <h2 className="text-xl font-bold text-gray-900 mb-2">
+                {currentLanguage === 'hi' ? 'अपनी सफलता की यात्रा पूरी करें' : 'Complete your journey to success'}
+              </h2>
+              <p className="text-gray-600">
+                {currentLanguage === 'hi' ? 'इन कार्यों को पूरा करके अपने व्यवसाय को बढ़ाएं' : 'Complete these tasks to grow your business'}
+              </p>
+            </motion.div>
 
-              {/* Analytics Chart */}
-              <div className="mb-8">
-                <AnalyticsChart />
-              </div>
-
-              {/* Products Section */}
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div className="lg:col-span-2">
-                  {/* Products Header */}
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
-                    <h2 className="text-xl font-semibold text-white mb-4 sm:mb-0">
-                      {currentLanguage === 'hi' ? 'मेरे उत्पाद' : 'My Products'}
-                      <span className="ml-2 text-sm font-normal text-white/60">
-                        ({filteredProducts.length})
-                      </span>
-                    </h2>
-                  </div>
-
-                  {/* Empty State */}
-                  <div className="text-center py-12">
-                    <div className="w-16 h-16 bg-primary-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <Icon name="Package" size={32} className="text-white/60" />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {missionCards.map((card, index) => (
+                <motion.div
+                  key={card.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  className="cursor-pointer"
+                  onClick={() => handleCardClick(card.path)}
+                >
+                  <div className={`${card.color} rounded-2xl p-6 text-white shadow-lg hover:shadow-xl transition-all duration-300 h-full min-h-[200px] flex flex-col justify-between`}>
+                    <div>
+                      <h3 className="text-lg font-bold mb-2 leading-tight">
+                        {card.title}
+                      </h3>
+                      <p className="text-white/90 text-sm mb-4 leading-relaxed">
+                        {card.subtitle}
+                      </p>
                     </div>
-                    <h3 className="text-lg font-medium text-white mb-2">
-                      {currentLanguage === 'hi' ? 'अभी तक कोई उत्पाद नहीं' : 'No products yet'}
-                    </h3>
-                    <p className="text-white/60 mb-6">
-                      {currentLanguage === 'hi' 
-                        ? 'अपना पहला डिजिटल उत्पाद अपलोड करके शुरुआत करें'
-                        : 'Get started by uploading your first digital product'
-                      }
-                    </p>
-                    <Button
-                      variant="primary"
-                      onClick={() => navigate('/product-upload')}
-                      iconName="Plus"
-                      iconPosition="left"
-                      className="bg-highlight hover:bg-highlight-600 text-black"
-                    >
-                      {currentLanguage === 'hi' ? 'पहला उत्पाद अपलोड करें' : 'Upload First Product'}
-                    </Button>
+                    
+                    <div className="space-y-3">
+                      {card.progress > 0 && (
+                        <div>
+                          <div className="flex items-center justify-between text-xs mb-1">
+                            <span className="text-white/80">Progress</span>
+                            <span className="text-white font-medium">{card.progress}%</span>
+                          </div>
+                          <div className="w-full bg-white/20 rounded-full h-2 overflow-hidden">
+                            <motion.div 
+                              className="h-full bg-white rounded-full"
+                              initial={{ width: 0 }}
+                              animate={{ width: `${card.progress}%` }}
+                              transition={{ duration: 1, delay: index * 0.1 + 0.5 }}
+                            />
+                          </div>
+                        </div>
+                      )}
+                      
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs text-white/80 font-medium">
+                          {card.status}
+                        </span>
+                        <Icon name="ArrowRight" size={16} className="text-white/80" />
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Stats Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+              className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6"
+            >
+              <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                <div className="flex items-center space-x-3">
+                  <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
+                    <Icon name="Package" size={24} className="text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-gray-900">0</p>
+                    <p className="text-gray-600 text-sm">{currentLanguage === 'hi' ? 'उत्पाद' : 'Products'}</p>
                   </div>
                 </div>
-
-                {/* Sidebar */}
-                <div className="space-y-8">
-                  {/* UPI Setup */}
-                  <UpiSetup />
-
-                  {/* Quick Actions */}
-                  <QuickActions />
+              </div>
+              
+              <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                <div className="flex items-center space-x-3">
+                  <div className="w-12 h-12 bg-success-100 rounded-lg flex items-center justify-center">
+                    <Icon name="DollarSign" size={24} className="text-success" />
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-gray-900">₹0</p>
+                    <p className="text-gray-600 text-sm">{currentLanguage === 'hi' ? 'कमाई' : 'Earnings'}</p>
+                  </div>
                 </div>
               </div>
-            </div>
+              
+              <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                <div className="flex items-center space-x-3">
+                  <div className="w-12 h-12 bg-accent-100 rounded-lg flex items-center justify-center">
+                    <Icon name="Users" size={24} className="text-accent" />
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-gray-900">0</p>
+                    <p className="text-gray-600 text-sm">{currentLanguage === 'hi' ? 'ग्राहक' : 'Customers'}</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
       </div>
