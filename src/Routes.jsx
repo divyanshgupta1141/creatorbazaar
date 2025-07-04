@@ -1,17 +1,28 @@
 import React from "react";
 import { BrowserRouter, Routes as RouterRoutes, Route } from "react-router-dom";
 import ScrollToTop from "components/ScrollToTop";
-import ProtectedRoute from "components/ProtectedRoute";
 import ErrorBoundary from "components/ErrorBoundary";
-// Add your imports here
+import { isAuthenticated } from "./utils/authUtils";
+
+// Public pages
 import Homepage from "pages/homepage";
 import LoginPage from "pages/login";
 import SignupPage from "pages/signup";
-import CreateProductPage from "pages/create-product";
 import AuthenticationModal from "pages/authentication-modal";
 import ProductDetailPage from "pages/product-detail-page";
-import ProductUpload from "pages/product-upload";
+import ExplorePage from "pages/explore";
+import PricingPage from "pages/pricing";
+import HelpPage from "pages/help";
+import ContactPage from "pages/contact";
+import TermsPage from "pages/terms";
+import PrivacyPage from "pages/privacy";
+import RefundsPage from "pages/refunds";
+import NotFound from "pages/NotFound";
+
+// Dashboard pages
 import CreatorDashboard from "pages/creator-dashboard";
+import ProductUpload from "pages/product-upload";
+import CreateProductPage from "pages/create-product";
 import IndividualProductManagement from "pages/individual-product-management";
 import UploadPage from "pages/dashboard/upload";
 import ProductsPage from "pages/dashboard/products";
@@ -20,24 +31,12 @@ import EmailsPage from "pages/dashboard/emails";
 import SalesPage from "pages/dashboard/sales";
 import AnalyticsPage from "pages/dashboard/analytics";
 import SettingsPage from "pages/dashboard/settings";
-import PricingPage from "pages/pricing";
-import HelpPage from "pages/help";
-import ContactPage from "pages/contact";
-import ExplorePage from "pages/explore";
-import TermsPage from "pages/terms";
-import PrivacyPage from "pages/privacy";
-import RefundsPage from "pages/refunds";
-import NotFound from "pages/NotFound";
-import LoginPage from "pages/login";
 
 const Routes = () => {
   return (
     <BrowserRouter>
       <ErrorBoundary>
-      <ScrollToTop />
-      <RouterRoutes>
-        {/* Define your routes here */}
-      <ProtectedRoute>
+        <ScrollToTop />
         <RouterRoutes>
           {/* Public Routes */}
           <Route path="/" element={<Homepage />} />
@@ -48,19 +47,19 @@ const Routes = () => {
           <Route path="/product-detail-page" element={<ProductDetailPage />} />
           <Route path="/product-detail-page/:id" element={<ProductDetailPage />} />
           <Route path="/product/:id" element={<ProductDetailPage />} />
-          <Route path="/pricing" element={<PricingPage />} />
-          <Route path="/help" element={<HelpPage />} />
-          <Route path="/contact" element={<ContactPage />} />
           <Route path="/explore" element={<ExplorePage />} />
           <Route path="/marketplace" element={<ExplorePage />} />
           <Route path="/category/:slug" element={<ExplorePage />} />
+          <Route path="/pricing" element={<PricingPage />} />
+          <Route path="/help" element={<HelpPage />} />
+          <Route path="/contact" element={<ContactPage />} />
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/refunds" element={<RefundsPage />} />
 
           {/* Dashboard Routes */}
-          <Route path="/creator-dashboard" element={<CreatorDashboard />} />
           <Route path="/dashboard" element={<CreatorDashboard />} />
+          <Route path="/creator-dashboard" element={<CreatorDashboard />} />
           <Route path="/dashboard/upload" element={<UploadPage />} />
           <Route path="/dashboard/products" element={<ProductsPage />} />
           <Route path="/dashboard/collaborators" element={<CollaboratorsPage />} />
@@ -76,12 +75,9 @@ const Routes = () => {
           {/* 404 Route */}
           <Route path="*" element={<NotFound />} />
         </RouterRoutes>
-      </ProtectedRoute>
       </ErrorBoundary>
     </BrowserRouter>
   );
 };
 
 export default Routes;
-  )
-}
