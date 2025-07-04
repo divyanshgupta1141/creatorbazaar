@@ -32,7 +32,7 @@ const CreatorDashboard = () => {
   const sidebarItems = [
     { icon: 'Home', label: currentLanguage === 'hi' ? 'होम' : 'Home', path: '/creator-dashboard', active: true },
     { icon: 'Package', label: currentLanguage === 'hi' ? 'उत्पाद' : 'Products', path: '/dashboard/products' },
-    { icon: 'Upload', label: currentLanguage === 'hi' ? 'अपलोड' : 'Upload', path: '/product-upload' },
+    { icon: 'Upload', label: currentLanguage === 'hi' ? 'अपलोड' : 'Upload', path: '/dashboard/upload' },
     { icon: 'Users', label: currentLanguage === 'hi' ? 'सहयोगी' : 'Collaborators', path: '/dashboard/collaborators' },
     { icon: 'Mail', label: currentLanguage === 'hi' ? 'ईमेल' : 'Emails', path: '/dashboard/emails' },
     { icon: 'DollarSign', label: currentLanguage === 'hi' ? 'बिक्री' : 'Sales', path: '/dashboard/sales' },
@@ -57,7 +57,7 @@ const CreatorDashboard = () => {
       status: currentLanguage === 'hi' ? 'शुरू करें' : 'Get Started',
       progress: 0,
       color: 'bg-emerald-500',
-      path: '/product-upload'
+      path: '/dashboard/upload'
     },
     {
       id: 'showtime',
@@ -203,7 +203,7 @@ const CreatorDashboard = () => {
           </div>
           <Button
             variant="primary"
-            onClick={() => navigate('/product-upload')}
+            onClick={() => navigate('/dashboard/upload')}
             iconName="Plus"
             iconPosition="left"
             className="bg-primary hover:bg-primary-600 text-white min-h-[44px] px-6 font-semibold"
@@ -225,7 +225,7 @@ const CreatorDashboard = () => {
           </h1>
           <Button
             variant="primary"
-            onClick={() => navigate('/product-upload')}
+            onClick={() => navigate('/dashboard/upload')}
             iconName="Plus"
             className="bg-primary hover:bg-primary-600 text-white min-h-[44px] min-w-[44px] p-2"
           />
