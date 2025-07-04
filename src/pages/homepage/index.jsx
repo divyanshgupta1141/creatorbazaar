@@ -66,7 +66,7 @@ const Homepage = () => {
         </script>
       </Helmet>
 
-      <div className="min-h-screen bg-background dark:bg-dark-bg">
+      <div className="min-h-screen bg-background transition-colors duration-300">
         <Header />
         
         <main className="pt-16 pb-20 md:pb-0">

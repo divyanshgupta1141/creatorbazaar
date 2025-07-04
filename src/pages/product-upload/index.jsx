@@ -172,7 +172,7 @@ const ProductUpload = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background transition-colors duration-300">
       <Header />
       
       {/* Authentication Banner */}

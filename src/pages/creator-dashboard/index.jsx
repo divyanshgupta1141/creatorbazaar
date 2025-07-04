@@ -125,7 +125,7 @@ const CreatorDashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-dark-bg">
+    <div className="min-h-screen bg-dark-bg transition-colors duration-300">
       {/* Mobile Header */}
       <div className="lg:hidden">
         <Header />

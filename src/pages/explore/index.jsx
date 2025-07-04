@@ -42,7 +42,7 @@ const ExplorePage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background transition-colors duration-300">
       <Header />
       
       <main className="pt-20 pb-12">
@@ -73,7 +73,7 @@ const ExplorePage = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mb-8"
           >
-            <div className="bg-surface rounded-xl border border-border p-6 shadow-sm">
+            <div className="bg-surface rounded-xl border border-border p-6 shadow-sm transition-colors duration-300">
               <div className="flex flex-col lg:flex-row gap-4">
                 {/* Search */}
                 <div className="flex-1 relative">

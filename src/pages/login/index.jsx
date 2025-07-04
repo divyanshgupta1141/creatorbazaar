@@ -122,7 +122,7 @@ const LoginPage = () => {
         <meta name="description" content={text.subtitle} />
       </Helmet>
 
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background transition-colors duration-300">
         <Header />
         
         <main className="pt-20 pb-20 md:pb-8">
@@ -132,7 +132,7 @@ const LoginPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="bg-surface rounded-2xl shadow-lg border border-border p-8"
+                className="bg-surface rounded-2xl shadow-lg border border-border p-8 transition-colors duration-300"
               >
                 {/* Header */}
                 <div className="text-center mb-8">
