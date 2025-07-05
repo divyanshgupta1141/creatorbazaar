@@ -24,7 +24,7 @@ const MobileNavigation = () => {
       id: 'home',
       label: currentLanguage === 'hi' ? 'होम' : 'Home',
       icon: 'Home',
-      path: '/homepage'
+      path: '/'
     },
     {
       id: 'explore',
@@ -42,7 +42,7 @@ const MobileNavigation = () => {
       id: 'dashboard',
       label: currentLanguage === 'hi' ? 'डैशबोर्ड' : 'Dashboard',
       icon: 'LayoutDashboard',
-      path: '/creator-dashboard'
+      path: '/dashboard'
     },
     {
       id: 'support',

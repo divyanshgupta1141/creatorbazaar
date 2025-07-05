@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
 import Header from '../../components/ui/Header';
@@ -10,6 +10,7 @@ import Input from '../../components/ui/Input';
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [currentLanguage, setCurrentLanguage] = useState('en');
   const [formData, setFormData] = useState({
     email: '',
@@ -21,6 +22,13 @@ const LoginPage = () => {
   useEffect(() => {
     const savedLanguage = localStorage.getItem('language') || 'en';
     setCurrentLanguage(savedLanguage);
+
+    // Check if user is already authenticated
+    const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+    if (isAuthenticated) {
+      // Redirect to dashboard if already logged in
+      navigate('/dashboard');
+    }
 
     const handleLanguageChange = (event) => {
       setCurrentLanguage(event.detail);
@@ -70,7 +78,9 @@ const LoginPage = () => {
       localStorage.setItem('userEmail', formData.email);
       localStorage.setItem('authTimestamp', Date.now().toString());
       
-      navigate('/creator-dashboard');
+      // Redirect to the page they were trying to access or dashboard
+      const from = location.state?.from || '/dashboard';
+      navigate(from);
     } catch (error) {
       console.error('Login error:', error);
     } finally {
@@ -83,7 +93,10 @@ const LoginPage = () => {
     localStorage.setItem('isAuthenticated', 'true');
     localStorage.setItem('userEmail', 'user@gmail.com');
     localStorage.setItem('authTimestamp', Date.now().toString());
-    navigate('/creator-dashboard');
+    
+    // Redirect to the page they were trying to access or dashboard
+    const from = location.state?.from || '/dashboard';
+    navigate(from);
   };
 
   const content = {

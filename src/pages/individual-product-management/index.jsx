@@ -63,7 +63,7 @@ const IndividualProductManagement = () => {
 
   const handleDeleteProduct = (deletedProductId) => {
     // Navigate back to dashboard after deletion
-    navigate('/creator-dashboard');
+    navigate('/dashboard');
   };
 
   const handleFileReplace = (newFileData) => {

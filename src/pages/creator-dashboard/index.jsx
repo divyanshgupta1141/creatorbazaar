@@ -23,7 +23,7 @@ const CreatorDashboard = () => {
     // Check authentication
     const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
     if (!isAuthenticated) {
-      navigate('/authentication-modal');
+      navigate('/login', { state: { from: '/dashboard' } });
     }
 
     return () => window.removeEventListener('languageChange', handleLanguageChange);
@@ -123,7 +123,7 @@ const CreatorDashboard = () => {
     localStorage.removeItem('isAuthenticated');
     localStorage.removeItem('userEmail');
     localStorage.removeItem('userName');
-    navigate('/homepage');
+    navigate('/');
   };
 
   return (

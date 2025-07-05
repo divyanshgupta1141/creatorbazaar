@@ -14,6 +14,7 @@ const ActionButtons = ({ product, onDelete, onSave, onPreview, currentLanguage }
       await new Promise(resolve => setTimeout(resolve, 1500));
       onDelete(product.id);
       setShowDeleteModal(false);
+      navigate('/dashboard');
     } catch (error) {
       console.error('Error deleting product:', error);
     } finally {

@@ -13,6 +13,11 @@ const Header = () => {
   useEffect(() => {
     const authStatus = localStorage.getItem('isAuthenticated') === 'true';
     setIsAuthenticated(authStatus);
+    
+    // If user is authenticated and on public pages, redirect to dashboard
+    if (authStatus && location.pathname === '/') {
+      navigate('/dashboard');
+    }
 
     // Initialize dark mode from localStorage
     const savedDarkMode = localStorage.getItem('darkMode') === 'true';
@@ -51,7 +56,7 @@ const Header = () => {
     if (isAuthenticated) {
       localStorage.removeItem('isAuthenticated');
       setIsAuthenticated(false);
-      navigate('/homepage');
+      navigate('/');
     } else {
       navigate('/authentication-modal');
     }
@@ -60,7 +65,7 @@ const Header = () => {
   const navigationItems = [
     { 
       label: 'Home', 
-      path: '/homepage',
+      path: '/',
       icon: 'Home'
     },
     { 
@@ -76,7 +81,7 @@ const Header = () => {
     },
     { 
       label: 'Dashboard', 
-      path: '/creator-dashboard',
+      path: '/dashboard',
       icon: 'LayoutDashboard',
       requiresAuth: true
     }

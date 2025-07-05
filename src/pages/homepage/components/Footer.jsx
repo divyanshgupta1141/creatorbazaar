@@ -11,8 +11,8 @@ const Footer = ({ currentLanguage }) => {
     product: {
       title: currentLanguage === 'hi' ? 'उत्पाद' : 'Product',
       links: [
-        { label: currentLanguage === 'hi' ? 'अपलोड करें' : 'Upload', path: '/product-upload' },
-        { label: currentLanguage === 'hi' ? 'डैशबोर्ड' : 'Dashboard', path: '/creator-dashboard' },
+        { label: currentLanguage === 'hi' ? 'अपलोड करें' : 'Upload', path: '/login' },
+        { label: currentLanguage === 'hi' ? 'डैशबोर्ड' : 'Dashboard', path: '/login' },
         { label: currentLanguage === 'hi' ? 'खोजें' : 'Explore', path: '/explore' },
         { label: currentLanguage === 'hi' ? 'मूल्य निर्धारण' : 'Pricing', path: '/pricing' }
       ]

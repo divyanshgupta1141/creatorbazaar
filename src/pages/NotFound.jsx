@@ -1,13 +1,16 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Button from 'components/ui/Button';
 import Icon from 'components/AppIcon';
 
 const NotFound = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const isDashboardPath = location.pathname.startsWith('/dashboard');
 
   const handleGoHome = () => {
-    navigate('/');
+    // Navigate to dashboard home if in dashboard, otherwise to public home
+    navigate(isDashboardPath ? '/dashboard' : '/');
   };
 
   return (

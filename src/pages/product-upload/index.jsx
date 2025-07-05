@@ -69,7 +69,7 @@ const ProductUpload = () => {
     // Check authentication before saving
     const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
     if (!isAuthenticated) {
-      navigate('/authentication-modal', { 
+      navigate('/login', { 
         state: { from: '/product-upload', productData: { formData, selectedFile } }
       });
       return;
@@ -124,7 +124,7 @@ const ProductUpload = () => {
   };
 
   const handleAuthLogin = () => {
-    navigate('/authentication-modal', { 
+    navigate('/login', { 
       state: { from: '/product-upload' }
     });
   };

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Navigate } from 'react-router-dom';
 import Icon from '../AppIcon';
 import Button from '../ui/Button';
 
@@ -9,10 +9,15 @@ const DashboardLayout = ({ children, currentPage }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState('en');
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
     const savedLanguage = localStorage.getItem('language') || 'en';
     setCurrentLanguage(savedLanguage);
+    
+    // Check authentication
+    const authStatus = localStorage.getItem('isAuthenticated') === 'true';
+    setIsAuthenticated(authStatus);
     
     // Initialize dark mode from localStorage
     const savedDarkMode = localStorage.getItem('darkMode') === 'true';
@@ -42,11 +47,11 @@ const DashboardLayout = ({ children, currentPage }) => {
     localStorage.removeItem('isAuthenticated');
     localStorage.removeItem('userEmail');
     localStorage.removeItem('userName');
-    navigate('/homepage');
+    navigate('/');
   };
 
   const sidebarItems = [
-    { icon: 'Home', label: currentLanguage === 'hi' ? 'होम' : 'Home', path: '/creator-dashboard', key: 'home' },
+    { icon: 'Home', label: currentLanguage === 'hi' ? 'होम' : 'Home', path: '/dashboard', key: 'home' },
     { icon: 'Package', label: currentLanguage === 'hi' ? 'उत्पाद' : 'Products', path: '/dashboard/products', key: 'products' },
     { icon: 'Upload', label: currentLanguage === 'hi' ? 'अपलोड' : 'Upload', path: '/dashboard/upload', key: 'upload' },
     { icon: 'Users', label: currentLanguage === 'hi' ? 'सहयोगी' : 'Collaborators', path: '/dashboard/collaborators', key: 'collaborators' },
@@ -55,6 +60,11 @@ const DashboardLayout = ({ children, currentPage }) => {
     { icon: 'BarChart3', label: currentLanguage === 'hi' ? 'एनालिटिक्स' : 'Analytics', path: '/dashboard/analytics', key: 'analytics' },
     { icon: 'Settings', label: currentLanguage === 'hi' ? 'सेटिंग्स' : 'Settings', path: '/dashboard/settings', key: 'settings' },
   ];
+
+  // Redirect to login if not authenticated
+  if (!isAuthenticated) {
+    return <Navigate to="/login" state={{ from: location.pathname }} />;
+  }
 
   return (
     <div className="min-h-screen bg-background flex">

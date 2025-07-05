@@ -37,7 +37,7 @@ const CreateProductPage = () => {
     // Check authentication
     const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
     if (!isAuthenticated) {
-      navigate('/login');
+      navigate('/login', { state: { from: '/create-product' } });
     }
   }, [navigate]);
 

@@ -40,7 +40,7 @@ const AuthenticationModal = () => {
   }, []);
 
   const handleClose = () => {
-    const from = location.state?.from || '/homepage';
+    const from = location.state?.from || '/';
     navigate(from);
   };
 
@@ -101,7 +101,7 @@ const AuthenticationModal = () => {
 
   const handleSuccess = () => {
     // Redirect to intended page or dashboard
-    const from = location.state?.from || '/creator-dashboard';
+    const from = location.state?.from || '/dashboard';
     navigate(from);
   };
 

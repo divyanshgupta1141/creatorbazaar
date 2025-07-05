@@ -222,7 +222,7 @@ const SuccessModal = ({ isOpen, onClose, productData, currentLanguage }) => {
               </Button>
               <Button
                 variant="primary"
-                onClick={() => window.open(`/creator-dashboard`, '_self')}
+                onClick={() => window.open(`/dashboard`, '_self')}
                 iconName="BarChart3"
                 iconPosition="left"
                 className="flex-1"

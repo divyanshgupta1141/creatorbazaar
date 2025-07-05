@@ -33,7 +33,7 @@ const UploadPage = () => {
     // Check authentication
     const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
     if (!isAuthenticated) {
-      navigate('/authentication-modal', { state: { from: '/dashboard/upload' } });
+      navigate('/login', { state: { from: '/dashboard/upload' } });
     }
   }, [navigate]);
 
